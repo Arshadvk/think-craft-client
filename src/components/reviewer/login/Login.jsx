@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import studentLogin from "../../../assets/image/studentLogin.jpg";
+import ReviewerLoginImage from "../../../assets/image/ReviewerLoginImage.jpg";
+import  reviewerAxios  from "../../../axios/reviewerAxios";
 import { useNavigate } from "react-router-dom";
-import studentAxios from "../../../axios/studentAxios";
 import { useDispatch } from "react-redux";
-import { IsStudentLogin } from "../../../redux/student/studentAuth";
-
+import {IsReviewerLogin} from '../../../redux/reviewer/reviewerAuth'
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -13,29 +12,28 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate =  useNavigate()
 
   const handlePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e)=>{
     e.preventDefault();
-
     if (email) {
       setErrorMessage("");
       if (password) {
         setErrorMessage2("");
-        studentAxios.post("/login", { email, password }).then((res) => {
+        reviewerAxios.post("/login", { email, password }).then((res) => {
           const result = res.data.message;
           console.log(result);
-          console.log("fhjdsghf");
+          console.log("fhjdsghjhnf");
 
           if (result.status) {
             const token = result.token;
-            dispatch(IsStudentLogin({ token: token }));
-            navigate("/");
+            dispatch(IsReviewerLogin({token:token}));
+            navigate("/reviewer");
           } else {
             setErrorMessage2(result.message);
           }
@@ -46,25 +44,26 @@ function Login() {
     } else {
       setErrorMessage("please enter your email");
     }
-  };
+
+  }
   return (
     <div>
       <section className="bg-gray-50 min-h-screen flex items-center justify-center ">
-        <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5">
+        <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-lg max-w-3xl p-5">
           {/* image */}
-
-          <div className="sm:block hidden w-1/2">
-            <img className="rounded-2xl" src={studentLogin} alt="" srcset="" />
+          <div className="sm:block hidden w-1/2 rounded-2xl overflow-hidden">
+            {/* Add the "rounded" class to apply the border radius */}
+            <img className="rounded-2xl" src={ReviewerLoginImage} alt="" />
           </div>
 
-          {/* form*/}
-          <div className="sm:w-1/2 px-16 ">
+          {/* form */}
+          <div className="sm:w-1/2 px-16">
           <h1 className="font-extrabold text-3xl text-shadow text-center">
-              BROCAMP <span className="text-xs">STUDENT</span>
+              BROCAMP <span className="text-xs">REVIEWER</span>
             </h1>
             <br />
             <h1 className="font-bold text-xl text-center text-shadow ">
-              LOGIN
+              Set Password
             </h1>
             <form
               action="POST"
@@ -73,7 +72,7 @@ function Login() {
             >
               <input
                 type="email"
-                className="p-2 mt-8 rounded-xl border"
+                className="p-2 mt-8 rounded-xl border text-xs"
                 name="email"
                 value={email}
                 onChange={(e) => {
@@ -81,13 +80,13 @@ function Login() {
                 }}
                 placeholder="please enter your email"
               />
-               {errorMessage && (
+                {errorMessage && (
                 <span className="text-red-500 text-xs">{errorMessage}</span>
-              )}
+              )}       
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="p-2 rounded-xl border w-full"
+                  className="p-2 rounded-xl border w-full text-xs"
                   name="password"
                   value={password}
                   onChange={(e) => {
@@ -121,15 +120,13 @@ function Login() {
                 <span className="text-red-500 text-xs">{errorMessage2}</span>
               )}
               <h3 className="text-end text-xs"> Forgot password ?</h3>
-              
+
               <button
                 type="submit"
-                className="py-2 rounded-xl border bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 hover:drop-shadow-xl "
+                className="py-2 text-slate-50 font-bold rounded-xl border bg-[#132D46] hover:bg-[#0a1e31] active:bg-[#041524] focus:outline-none focus:ring focus:ring-[#86c5ff] hover:drop-shadow-xl"
               >
-                {" "}
                 Login
               </button>
-
             </form>
           </div>
         </div>
