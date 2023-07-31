@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage"
 import { ReviewerAuth } from "./reviewer/reviewerAuth";
 import { AdminAuth } from "./admin/adminAuth";
 import { AdvisorAuth } from "./advisor/advisorAuth";
-import thunk from "redux-thunk";
+
 
 const studentPersistConfig = {key:"Student" , storage , version:1}
 const reviewerPersistConfig = {key: "Reviewer" , storage , version:1}

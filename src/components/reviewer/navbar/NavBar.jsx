@@ -14,7 +14,7 @@ function NavBar() {
   return (
     <nav className="bg-gray-800 py-4 px-8">
     <div className="flex items-center justify-between">
-      <div className="text-white text-xl font-bold">My App</div>
+      <div className="text-white text-xl font-bold">Think Craft</div>
       <div className="flex">
         <div className="relative mr-4">
           <span className="absolute inset-y-0 left-0 pl-3 flex items-center">

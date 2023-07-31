@@ -54,8 +54,8 @@ function Login() {
 
           {/* form */}
           <div className="sm:w-1/2 px-16">
-            <h1 className="font-extrabold text-3xl text-shadow text-center">
-              BROCAMP <span className="text-xs">ADMIN</span>
+            <h1 className="font-extrabold text-2xl text-shadow text-center">
+            THINK CRAFT <span className="text-xs">ADMIN</span>
             </h1>
             <br />
             <h1 className="font-bold text-xl text-center text-shadow ">

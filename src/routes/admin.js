@@ -9,7 +9,6 @@ function AdminRoute() {
       <Routes>
         <Route exact path='/' element={<AdminHomePage/>}/>
         <Route  exact path='/login' element={<Adminlogin/>}/>
-
       </Routes>
     </div>
   )

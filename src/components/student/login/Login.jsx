@@ -59,8 +59,8 @@ function Login() {
 
           {/* form*/}
           <div className="sm:w-1/2 px-16 ">
-          <h1 className="font-extrabold text-3xl text-shadow text-center">
-              BROCAMP <span className="text-xs">STUDENT</span>
+          <h1 className="font-extrabold text-2xl text-shadow text-center">
+          THINK CRAFT <span className="text-xs">STUDENT</span>
             </h1>
             <br />
             <h1 className="font-bold text-xl text-center text-shadow ">
@@ -100,7 +100,7 @@ function Login() {
                   width="16"
                   height="16"
                   fill="currentColor"
-                  className="bi bi-eye-fill absolute top-1/3 right-3 "
+                  className="bi bi-eye-fill absolute top-1/3 right-3 hover:cursor-pointer"
                   viewBox="0 0 16 16"
                   onClick={handlePasswordVisibility}
                 >
@@ -120,11 +120,11 @@ function Login() {
               {errorMessage2 && (
                 <span className="text-red-500 text-xs">{errorMessage2}</span>
               )}
-              <h3 className="text-end text-xs"> Forgot password ?</h3>
+              <h3 className="text-end text-xs hover:drop-shadow-xl hover:cursor-pointer"> Forgot password ?</h3>
               
               <button
                 type="submit"
-                className="py-2 rounded-xl border bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 hover:drop-shadow-xl "
+                className="py-2 text-white font-bold rounded-xl border bg-[#92959c] hover:bg-[#6b6e74] active:bg-[#434549] focus:outline-none focus:ring focus:ring-[#323335] hover:drop-shadow-xl "
               >
                 {" "}
                 Login

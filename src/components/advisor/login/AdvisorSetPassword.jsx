@@ -1,43 +1,43 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import setpassword from "../../../assets/image/setpassword.jpg";
-import studentAxios from "../../../axios/studentAxios"
+import advisorAxios from '../../../axios/advisorAxios';
 
-function StudentSetPassword() {
-  const [password, setPassword] = useState("");
-  const [password1, setPassword1] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPassword2, setShowPassword2] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [errorMessage2, setErrorMessage2] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if(password.trim() === ""){setErrorMessage("please enter vaild password")}
-    else{
-        if (password.trim().length < 8 ) {
-            setErrorMessage("Passwords should be 8 characters long");
-          } else {
-            setErrorMessage("");
-            if (password !== password1) {
-              setErrorMessage2("Password must be same");
+function AdvisorSetPassword() {
+    const [password, setPassword] = useState("");
+    const [password1, setPassword1] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword2, setShowPassword2] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage2, setErrorMessage2] = useState("");
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      if(password.trim() === ""){setErrorMessage("please enter vaild password")}
+      else{
+          if (password.trim().length < 8 ) {
+              setErrorMessage("Passwords should be 8 characters long");
             } else {
-              setErrorMessage2("");
-                studentAxios.put('/setpassword',{password,email:"maxarshu7560@gmail.com"}).then((res)=>{
-                    const result = res.data;
-                    console.log(result);
-                })
+              setErrorMessage("");
+              if (password !== password1) {
+                setErrorMessage2("Password must be same");
+              } else {
+                setErrorMessage2("");
+                advisorAxios.put('/setpassword',{password,email:"maxarshu7560@gmail.com"}).then((res)=>{
+                      const result = res.data;
+                      console.log(result);
+                  })
+              }
             }
-          }
-    }
-    
-  };
-
-  const handlePasswordVisibility = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
-  };
-  const handlePasswordVisibility2 = () => {
-    setShowPassword2((prevShowPassword) => !prevShowPassword);
-  };
+      }
+      
+    };
+  
+    const handlePasswordVisibility = () => {
+      setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
+    const handlePasswordVisibility2 = () => {
+      setShowPassword2((prevShowPassword) => !prevShowPassword);
+    };
   return (
     <div>
       <section className="bg-gray-50 min-h-screen flex items-center justify-center ">
@@ -154,7 +154,7 @@ function StudentSetPassword() {
         </div>
       </section>
     </div>
-  );
+  )
 }
 
-export default StudentSetPassword;
+export default AdvisorSetPassword
