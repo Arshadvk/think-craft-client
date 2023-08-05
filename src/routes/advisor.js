@@ -11,8 +11,8 @@ function  AdvisorRoute() {
   return (
     <div>
        <Routes>
-        <Route exact path='/' element={<AdvisorHomePage/> }/>
-        <Route exact path='/login' element={  <AdvisorLoginPage/>}/>
+        <Route exact path='/' element={IsAdvisor.Token?<AdvisorHomePage/>:<AdvisorLoginPage/> }/>
+        <Route exact path='/login' element={!IsAdvisor.Token ? <AdvisorLoginPage/>:<AdvisorHomePage/>}/>
         <Route exact path='/setpassword' element={<AdvisorSetpasswordPage/>}/>
         <Route exact path='/profile' element={<AdvisorProfilePage/>} />
       </Routes>

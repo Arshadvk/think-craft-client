@@ -20,11 +20,11 @@ function Navbar() {
     navigate("/login");
   };
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="">
       {/* Navbar */}
       <nav className="bg-[#7c8087] text-white p-3 fixed w-full top-0 ">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold text-shadow px-4">Think Craft</h1>
+          <h1 className="text-sm font-bold text-shadow px-4">Think Craft</h1>
 
           <div className="flex items-center">
             <div className="relative mr-4">

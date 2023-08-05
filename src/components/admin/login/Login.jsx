@@ -3,6 +3,7 @@ import adminLogin from "../../../assets/image/adminLogin.jpg";
 import adminAxios from "../../../axios/adminAxios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { IsAdminLogin } from "../../../redux/admin/adminAuth";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -22,11 +23,14 @@ function Login() {
       if (password) {
         setErrorMessage2("");
         adminAxios.post("/login", { email, password }).then((res) => {
-          const result = res.data
+          const result = res.data.message
           console.log(result);
-          navigate('/admin/')
           if (result.status) {
-            const token = result;
+            const token = result.token;
+            dispatch(IsAdminLogin({token:token}))
+            navigate('/admin/')
+          }else{
+            setErrorMessage2(result.message);
           }
         })
       } else {
