@@ -1,11 +1,12 @@
 import React from 'react'
-import Navbar from '../../components/student/navabr/NavBar'
 import ProfileTable from '../../components/student/profile/Profile'
+import Navbar from '../../components/common/nav/Navbar'
 
 function Profile() {
   return (
     <div>
-        <Navbar/>
+       <Navbar type={""}/>
+
         <ProfileTable/>
       
     </div>

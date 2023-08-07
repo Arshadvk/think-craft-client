@@ -1,10 +1,14 @@
 import React from 'react'
-import NavBar from '../../components/reviewer/navbar/NavBar'
+import AddSlot from '../../components/reviewer/home/AddSlot'
+import Navbar from '../../components/common/nav/Navbar'
+
 
 function ReviewerHomePage() {
   return (
     <div>
-      <NavBar/>
+            <Navbar type={"reviewer"}/>
+
+      <AddSlot/>
     </div>
   )
 }

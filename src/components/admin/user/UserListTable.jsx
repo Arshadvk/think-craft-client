@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import adminAxios from "../../../axios/adminAxios";
 import Swal from "sweetalert2";
 
-function StudentListTable() {
+function UserListTable({type}) {
+  const user = type
+  console.log(user+1);
   const [userData, setUserDate] = useState([]);
 
   useEffect(() => {
-    console.log("ygf");
     adminAxios
-      .get("/all-student")
+      .get(`/all-${user}`)
       .then((response) => {
         console.log(response.data);
         setUserDate(response.data);
@@ -16,7 +17,7 @@ function StudentListTable() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [user]);
 
   const blockUser = (id, action) => {
     Swal.fire({
@@ -31,7 +32,7 @@ function StudentListTable() {
     }).then((result) => {
       if (result.isConfirmed) {
         adminAxios
-          .patch("/block-unblock-student", { id, action })
+          .patch(`/block-unblock-${user}`, { id, action })
           .then((response) => {
             const actionText = action === "unblock" ? "unblocked" : "blocked";
             Swal.fire({
@@ -43,7 +44,7 @@ function StudentListTable() {
               showConfirmButton: false,
             });
             const userDataa = userData.map((obj) => {
-              if (obj._id == id) {
+              if (obj._id === id) {
                 obj.isBlocked = obj.isBlocked === true ? false : true;
               }
               return obj;
@@ -66,7 +67,7 @@ function StudentListTable() {
   };
 
   return (
-    <div className="sm:ml-64">
+    <div className="lg:ml-64">
       <section className="bg-gray-50 min-h-screen flex items-center justify-center p-4 pt-0">
       <div class="relative overflow-x-auto shadow-md rounded-lg ">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -141,4 +142,4 @@ function StudentListTable() {
   );
 }
 
-export default StudentListTable;
+export default UserListTable;

@@ -30,9 +30,14 @@ function Login() {
             dispatch(IsAdminLogin({token:token}))
             navigate('/admin/')
           }else{
-            setErrorMessage2(result.message);
+            setErrorMessage2(result);
           }
+        }).catch((error)=>{
+          
+          setErrorMessage2("Incorrect password")
         })
+
+        
       } else {
         setErrorMessage2("please enter your password");
       }

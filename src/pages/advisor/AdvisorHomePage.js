@@ -1,10 +1,12 @@
 import React from 'react'
-import NavBar from '../../components/advisor/navbar/NavBar'
+import Navbar from '../../components/common/nav/Navbar'
+
 
 function AdvisorHomePage() {
   return (
     <div>
-      <NavBar/>
+      <Navbar type={"advisor"}/>
+     
     </div>
   )
 }

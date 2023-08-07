@@ -63,7 +63,7 @@ function Login() {
             </h1>
             <br />
             <h1 className="font-bold text-xl text-center text-shadow ">
-              Set Password
+              LOGIN
             </h1>
             <form
               action="POST"

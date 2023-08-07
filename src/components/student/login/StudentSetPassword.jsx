@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import setpassword from "../../../assets/image/setpassword.jpg";
 import studentAxios from "../../../axios/studentAxios"
+import { useNavigate, useParams } from "react-router-dom";
 
 function StudentSetPassword() {
+  const { id } = useParams();
   const [password, setPassword] = useState("");
   const [password1, setPassword1] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
-
+  const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
     if(password.trim() === ""){setErrorMessage("please enter vaild password")}
@@ -22,9 +24,12 @@ function StudentSetPassword() {
               setErrorMessage2("Password must be same");
             } else {
               setErrorMessage2("");
-                studentAxios.put('/setpassword',{password,email:"maxarshu7560@gmail.com"}).then((res)=>{
+                studentAxios.put(`/setpassword/${id}`,{password}).then((res)=>{
                     const result = res.data;
                     console.log(result);
+                    navigate(`/set-profile/${id}`)
+                }).catch((error)=>{
+                  setErrorMessage2(error.message)
                 })
             }
           }

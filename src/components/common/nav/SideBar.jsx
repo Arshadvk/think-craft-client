@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function SideBar({ data }) {
+function SideBar({ data ,type}) {
   const isSidebarOpen = data;
+  const user = type;
   const navigate = useNavigate();
 
   return (

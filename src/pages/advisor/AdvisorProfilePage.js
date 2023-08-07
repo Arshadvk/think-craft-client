@@ -1,11 +1,13 @@
 import React from 'react'
-import NavBar from '../../components/advisor/navbar/NavBar'
-import AdvisorProfile from '../../components/advisor/profile/AdvisorProfile'
+import Navbar from '../../components/common/nav/Navbar'
+
+
 
 function AdvisorProfilePage() {
     return (
         <div>
-            <NavBar />
+      <Navbar type={"advisor"}/>
+            
          
         </div>
     )

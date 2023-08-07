@@ -5,6 +5,7 @@ import adminAxios from '../../../axios/adminAxios';
 
 
 function CreateUser() {
+  console.log(localStorage.getItem("Admin"));
   const [role, setRole] = useState('student');
 
   const validationSchema = Yup.object().shape({
@@ -35,7 +36,7 @@ function CreateUser() {
   };
 
   return (
-    <div class="sm:ml-64">
+    <div class="lg:ml-64 mt-10">
       <section className="bg-gray-50 min-h-screen flex items-center justify-center">
         <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-xl max-w-3xl p-5">
           <div className="px-16">
