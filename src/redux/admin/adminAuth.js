@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const AdminAuth = createSlice({
-    name:"Admin",
+    name:"admin",
     initialState:{
         Token:null,
     },reducers:{

@@ -3,6 +3,8 @@ import adminAxios from "../../../axios/adminAxios";
 import Swal from "sweetalert2";
 
 function UserListTable({type}) {
+  console.log(localStorage.getItem("persist:Admin"));
+
   const user = type
   console.log(user+1);
   const [userData, setUserDate] = useState([]);

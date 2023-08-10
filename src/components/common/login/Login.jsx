@@ -1,65 +1,63 @@
 import React, { useState } from "react";
-import ReviewerLoginImage from "../../../assets/image/ReviewerLoginImage.jpg";
-import  reviewerAxios  from "../../../axios/reviewerAxios";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import {IsReviewerLogin} from '../../../redux/reviewer/reviewerAuth'
 
-function Login() {
+import studentImage from "../../../assets/image/studentLogin.jpg";
+
+import advisorImage from "../../../assets/image/advisorLoginImage.jpg";
+
+import reviewerImage from "../../../assets/image/ReviewerLoginImage.jpg";
+
+import adminImage from '../../../assets/image/adminLogin.jpg'
+import { useLoginHandle } from "../../../hooks/LoginHandle";
+
+
+function Login({type}) {
+  const user = type 
+  console.log(user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
 
-  const dispatch = useDispatch()
-  const navigate =  useNavigate()
+  const {loginHandle} = useLoginHandle()
+  
 
   const handlePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
+
     if (email) {
       setErrorMessage("");
       if (password) {
         setErrorMessage2("");
-        reviewerAxios.post("/login", { email, password }).then((res) => {
-          const result = res.data.message;
-          console.log(result);
-          console.log("fhjdsghjhnf");
 
-          if (result.status) {
-            const token = result.token;
-            dispatch(IsReviewerLogin({token:token}));
-            navigate("/reviewer");
-          } else {
-            setErrorMessage2(result.message);
-          }
-        });
+        loginHandle({user,email,password ,setErrorMessage2})
+
+      
       } else {
         setErrorMessage2("please enter your password");
       }
     } else {
       setErrorMessage("please enter your email");
     }
-
-  }
+  };
   return (
     <div>
       <section className="bg-gray-50 min-h-screen flex items-center justify-center ">
-        <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-lg max-w-3xl p-5">
+        <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5">
           {/* image */}
-          <div className="sm:block hidden w-1/2 rounded-2xl overflow-hidden">
-            {/* Add the "rounded" class to apply the border radius */}
-            <img className="rounded-2xl" src={ReviewerLoginImage} alt="" />
+
+          <div className="sm:block hidden w-1/2">
+            <img className="rounded-2xl" src={user === "student" ? studentImage : user === "reviewer" ? reviewerImage : user === "advisor" ? advisorImage : adminImage} alt="" srcset="" />
           </div>
 
-          {/* form */}
-          <div className="sm:w-1/2 px-16">
+          {/* form*/}
+          <div className="sm:w-1/2 px-16 ">
           <h1 className="font-extrabold text-2xl text-shadow text-center">
-              THINK CRAFT<span className="text-xs">REVIEWER</span>
+          THINK CRAFT <span className="text-xs">{user.toUpperCase()}</span>
             </h1>
             <br />
             <h1 className="font-bold text-xl text-center text-shadow ">
@@ -72,7 +70,7 @@ function Login() {
             >
               <input
                 type="email"
-                className="p-2 mt-8 rounded-xl border text-xs"
+                className="p-2 mt-8 rounded-xl border"
                 name="email"
                 value={email}
                 onChange={(e) => {
@@ -80,13 +78,13 @@ function Login() {
                 }}
                 placeholder="please enter your email"
               />
-                {errorMessage && (
+               {errorMessage && (
                 <span className="text-red-500 text-xs">{errorMessage}</span>
-              )}       
+              )}
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="p-2 rounded-xl border w-full text-xs"
+                  className="p-2 rounded-xl border w-full"
                   name="password"
                   value={password}
                   onChange={(e) => {
@@ -99,7 +97,7 @@ function Login() {
                   width="16"
                   height="16"
                   fill="currentColor"
-                  className="bi bi-eye-fill absolute top-1/3 right-3 "
+                  className="bi bi-eye-fill absolute top-1/3 right-3 hover:cursor-pointer"
                   viewBox="0 0 16 16"
                   onClick={handlePasswordVisibility}
                 >
@@ -119,14 +117,16 @@ function Login() {
               {errorMessage2 && (
                 <span className="text-red-500 text-xs">{errorMessage2}</span>
               )}
-              <h3 className="text-end text-xs"> Forgot password ?</h3>
-
+              <h3 className="text-end text-xs hover:drop-shadow-xl hover:cursor-pointer"> Forgot password ?</h3>
+              
               <button
                 type="submit"
-                className="py-2 text-slate-50 font-bold rounded-xl border bg-[#132D46] hover:bg-[#0a1e31] active:bg-[#041524] focus:outline-none focus:ring focus:ring-[#86c5ff] hover:drop-shadow-xl"
+                className="py-2 text-white font-bold rounded-xl border bg-[#92959c] hover:bg-[#6b6e74] active:bg-[#434549] focus:outline-none focus:ring focus:ring-[#323335] hover:drop-shadow-xl "
               >
+                {" "}
                 Login
               </button>
+
             </form>
           </div>
         </div>

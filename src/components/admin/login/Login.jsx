@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import adminLogin from "../../../assets/image/adminLogin.jpg";
-import adminAxios from "../../../axios/adminAxios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IsAdminLogin } from "../../../redux/admin/adminAuth";
@@ -28,6 +26,7 @@ function Login() {
           if (result.status) {
             const token = result.token;
             dispatch(IsAdminLogin({token:token}))
+            localStorage.setItem('admein',token)
             navigate('/admin/')
           }else{
             setErrorMessage2(result);

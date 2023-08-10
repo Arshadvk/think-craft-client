@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const ReviewerAuth = createSlice({
-    name:"Reviewer",
+    name:"reviewer",
     initialState:{
         Token:null,
     },reducers:{

@@ -7,10 +7,10 @@ import { AdminAuth } from "./admin/adminAuth";
 import { AdvisorAuth } from "./advisor/advisorAuth";
 
 
-const studentPersistConfig = {key:"Student" , storage , version:1}
-const reviewerPersistConfig = {key: "Reviewer" , storage , version:1}
-const adminPersistConfig = {key:"Admin" , storage , version:1}
-const advisorPersistConfig = {key:"Advisor" , storage , version:1}
+const studentPersistConfig = {key:"student" , storage , version:1}
+const reviewerPersistConfig = {key: "reviewer" , storage , version:1}
+const adminPersistConfig = {key:"admin" , storage , version:1}
+const advisorPersistConfig = {key:"advisor" , storage , version:1}
 
 const studentPersistReducer = persistReducer(studentPersistConfig , StudentAuth.reducer);
 const reviewerPersistReducer = persistReducer(reviewerPersistConfig,ReviewerAuth.reducer)

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import setpassword from "../../../assets/image/setpassword.jpg";
-import studentAxios from "../../../axios/studentAxios"
+import studentAxios from "../../../axios/studentAxios";
 import { useNavigate, useParams } from "react-router-dom";
+import advisorAxios from '../../../axios/advisorAxios'
+import reviewerAxios from '../../../axios/reviewerAxios'
 
-function StudentSetPassword() {
+function SetPassword({ type }) {
+  const user = type;
   const { id } = useParams();
   const [password, setPassword] = useState("");
   const [password1, setPassword1] = useState("");
@@ -11,30 +14,50 @@ function StudentSetPassword() {
   const [showPassword2, setShowPassword2] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(password.trim() === ""){setErrorMessage("please enter vaild password")}
-    else{
-        if (password.trim().length < 8 ) {
-            setErrorMessage("Passwords should be 8 characters long");
-          } else {
-            setErrorMessage("");
-            if (password !== password1) {
-              setErrorMessage2("Password must be same");
-            } else {
-              setErrorMessage2("");
-                studentAxios.put(`/setpassword/${id}`,{password}).then((res)=>{
-                    const result = res.data;
-                    console.log(result);
-                    navigate(`/set-profile/${id}`)
-                }).catch((error)=>{
-                  setErrorMessage2(error.message)
-                })
-            }
+    if (password.trim() === "") {
+      setErrorMessage("please enter vaild password");
+    } else {
+      if (password.trim().length < 8) {
+        setErrorMessage("Passwords should be 8 characters long");
+      } else {
+        setErrorMessage("");
+        if (password !== password1) {
+          setErrorMessage2("Password must be same");
+        } else {
+          setErrorMessage2("");
+          if (user === "student") {
+            studentAxios.put(`/setpassword/${id}`, { password }).then((res) => {
+                const result = res.data;
+                console.log(result);
+                navigate(`/set-profile/${id}`);
+              })
+              .catch((error) => {
+                setErrorMessage2(error.message);
+              });
+          }else if (user === "advisor"){
+            
+            advisorAxios.put('/setpassword',{password,email:"maxarshu7560@gmail.com"}).then((res)=>{
+              const result = res.data;
+              console.log(result);
+              navigate(`/advisor/set-profile/${id}`);
+          }).catch((error)=>{
+            setErrorMessage2(error.message);
+          })
+          }else if (user === "reviewer" ){
+            reviewerAxios.put('/setpassword',{password,email:"maxarshu7560@gmail.com"}).then((res)=>{
+              const result = res.data;
+              console.log(result);
+              navigate(`/reviewer/set-profile/${id}`);
+          }).catch((error)=>{
+            setErrorMessage2(error.message);
+          })
           }
+        }
+      }
     }
-    
   };
 
   const handlePasswordVisibility = () => {
@@ -55,7 +78,7 @@ function StudentSetPassword() {
           {/* form*/}
           <div className="sm:w-1/2 px-16 ">
             <h1 className="font-extrabold text-3xl text-shadow text-center">
-              BROCAMP <span className="text-xs">STUDENT</span>
+              BROCAMP <span className="text-xs">{user.toUpperCase()}</span>
             </h1>
             <br />
             <h1 className="font-bold text-xl text-center text-shadow ">
@@ -153,7 +176,6 @@ function StudentSetPassword() {
               >
                 Submit
               </button>
-             
             </form>
           </div>
         </div>
@@ -162,4 +184,4 @@ function StudentSetPassword() {
   );
 }
 
-export default StudentSetPassword;
+export default SetPassword;

@@ -1,21 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import studentAxios from "../../../axios/studentAxios"
+import studentAxios from "../../../axios/studentAxios";
 import { useNavigate, useParams } from "react-router-dom";
+import advisorAxios from "../../../axios/advisorAxios";
+import reviewerAxios from "../../../axios/reviewerAxios";
 
 function SetProfile({ type }) {
-  const navigate = useNavigate()
-  const { id } = useParams()
+  const [domain, setDomain] = useState([]);
+  const navigate = useNavigate();
+  const { id } = useParams();
   const user = type;
+  useEffect(() => {
+    studentAxios
+      .get("/get-domaim-info")
+      .then((response) => {
+        setDomain(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const formik = useFormik({
     initialValues: {
       number: "",
       gender: "",
       qualification: "",
-      address: "" ,
-      dob: ""
-      
+      address: "",
+      dob: "",
+      age: "",
+      domain:""
     },
     validationSchema: Yup.object({
       number: Yup.string()
@@ -23,18 +37,50 @@ function SetProfile({ type }) {
         .max(10, "Must be at less than 10 numbers")
         .required("Mobile number is required"),
       gender: Yup.string().required("Gender is required"),
-      qualification: Yup.string().required("Educational qualification is required"),
-      address: Yup.string().required('Address is required'),
+      qualification: Yup.string().required(
+        "Educational qualification is required"
+      ),
+      address: Yup.string().required("Address is required"),
       dob: Yup.date().required("Date of Birth is required"),
+      age: Yup.number().required("Age is required"),
+      
     }),
     onSubmit: (values) => {
-      studentAxios.put(`/edit-profile/${id}`).then((res)=>{
-        const result = res.data;
-        console.log(result);
-        navigate(`/login`)
-    }).catch((error)=>{
- 
-    })
+      if (user === "student") {
+        studentAxios
+          .put(`/edit-profile/${id}`, { values })
+          .then((res) => {
+            const result = res.data;
+            console.log(result);
+            navigate(`/login`);
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+      } else if (user === "advisor") {
+        advisorAxios
+          .put(`/edit-profile/${id}`, { values })
+          .then((res) => {
+            const result = res.data;
+            console.log(result);
+            navigate(`/advisor/login`);
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+      } else if (user === "reviewer") {
+        reviewerAxios
+          .put(`/edit-profile/${id}`, { values })
+          .then((res) => {
+            const result = res.data;
+            console.log(result);
+            navigate(`/reviewer/login`);
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+      }
+
       console.log(values);
     },
   });
@@ -74,26 +120,73 @@ function SetProfile({ type }) {
                   </div>
                 ) : null}
               </div>
-              
+
               <div className="relative">
-        <label htmlFor="dob" className="font-semibold text-sm">
-          Date of Birth
-        </label>
-        <input
-          type="date"
-          className="p-2 rounded-xl border w-full"
-          name="dob"
-          value={formik.values.dob}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        {formik.touched.dob && formik.errors.dob ? (
-          <div className="text-red-500 text-sm font-semibold pt-1 py-1">
-            {formik.errors.dob}
-          </div>
-        ) : null}
-      </div>
-             
+                <label htmlFor="dob" className="font-semibold text-sm">
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  className="p-2 rounded-xl border w-full"
+                  name="dob"
+                  value={formik.values.dob}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.dob && formik.errors.dob ? (
+                  <div className="text-red-500 text-sm font-semibold pt-1 py-1">
+                    {formik.errors.dob}
+                  </div>
+                ) : null}
+              </div>
+
+              <div className={ user === "advisor" ? "hidden relative" : "relative"}>
+                <label htmlFor="domain" className="mt-5 font-semibold text-sm">
+                  Select Domain
+                </label>
+                <select
+                  name="domain"
+                  value={formik.values.domain}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={`p-2 rounded-xl border w-full ${
+                    formik.touched.domain && formik.errors.domain
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                >
+                  <option value="">Select a domain</option>
+                  {domain.map((d) => (
+                    <option key={d.id} value={d._id}>
+                      {d.name}
+                    </option>
+                  ))}
+                </select>
+                {formik.touched.domain && formik.errors.domain ? (
+                  <div className="text-red-500 text-sm font-semibold pt-1 py-1">
+                    {formik.errors.domain}
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="relative">
+                <label htmlFor="dob" className="font-semibold text-sm">
+                  Age
+                </label>
+                <input
+                  type="number"
+                  className="p-2 rounded-xl border w-full"
+                  name="age"
+                  value={formik.values.age}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.age && formik.errors.age ? (
+                  <div className="text-red-500 text-sm font-semibold pt-1 py-1">
+                    {formik.errors.age}
+                  </div>
+                ) : null}
+              </div>
 
               <div className="relative">
                 <label htmlFor="gender" className="font-semibold text-sm">
@@ -142,10 +235,7 @@ function SetProfile({ type }) {
               </div>
 
               <div className="relative">
-              <label
-                  htmlFor="address"
-                  className="font-semibold text-sm"
-                >
+                <label htmlFor="address" className="font-semibold text-sm">
                   Address
                 </label>
                 <input
@@ -159,7 +249,8 @@ function SetProfile({ type }) {
                 />
                 {formik.touched.address && formik.errors.address ? (
                   <div className="text-red-500 text-sm font-semibold pt-1 py-1">
-                    {formik.errors.address}</div>
+                    {formik.errors.address}
+                  </div>
                 ) : null}
               </div>
 

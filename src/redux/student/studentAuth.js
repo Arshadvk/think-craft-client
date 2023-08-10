@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const StudentAuth = createSlice({
-    name:"Student",
+    name:"student",
     initialState:{
         Token:null,
     },

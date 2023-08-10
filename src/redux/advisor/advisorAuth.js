@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const AdvisorAuth = createSlice({
-    name:"Advisor",
+    name:"advisor",
     initialState:{
         Token:null,
     },reducers:{
