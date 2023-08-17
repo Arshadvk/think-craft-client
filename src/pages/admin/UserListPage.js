@@ -9,7 +9,7 @@ function UserListPage({type}) {
   return (
     <div>
       <Navbar type={"admin"} />
-   
+      
       <UserListTable type={user} />
       
     </div>

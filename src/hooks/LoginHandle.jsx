@@ -22,7 +22,8 @@ export function useLoginHandle(){
 
       if(user === "student"){
         studentAxios.post("/login", { email, password }).then((res) => {
-            const result = res.data.message;
+            const result = res.data?.studentToken            ;
+            console.log(result);
             if (result?.status) {
               const token = result.token;
               dispatch(IsStudentLogin({ token: token }));

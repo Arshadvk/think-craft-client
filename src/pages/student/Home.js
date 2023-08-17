@@ -1,14 +1,14 @@
 import React from 'react'
 import Navbar from '../../components/common/nav/Navbar'
+import TaskBox from '../../components/student/TaskBox'
 
 
 
 function Home() {
   return (
     <div>
-                  <Navbar type={""}/>
-
-      <h1>hello</h1>
+      <Navbar type={""} />
+      <TaskBox />
     </div>
   )
 }

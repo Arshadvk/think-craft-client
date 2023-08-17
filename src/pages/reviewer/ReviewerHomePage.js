@@ -1,6 +1,6 @@
 import React from 'react'
-import AddSlot from '../../components/reviewer/home/AddSlot'
 import Navbar from '../../components/common/nav/Navbar'
+import AddSlot from '../../components/reviewer/AddSlot'
 
 
 function ReviewerHomePage() {

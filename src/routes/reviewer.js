@@ -15,9 +15,10 @@ function ReviewerRoute() {
       <Routes>
         <Route exact path='/' element={!IsReviewer.Token ?<Login type={'reviewer'}/> :<ReviewerHomePage/>}/>
         <Route exact path='/login' element={IsReviewer.Token ? <ReviewerHomePage/> : <Login type={'reviewer'}/>}/>
-        <Route exact path='/setpassword/:id' element={<SetPassword type={"reviewer"}/>} />
+        <Route exact path='/set-password/:id' element={<SetPassword type={"reviewer"}/>} />
         <Route exact path='/profile' element={<ReviewerProfilePage/>} />
         <Route exact path='/set-profile/:id' element={<SetProfile type={'reviewer'}/>}/>
+        
       </Routes>
     </div>
   )

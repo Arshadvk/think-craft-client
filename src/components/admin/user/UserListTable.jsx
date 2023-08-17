@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import adminAxios from "../../../axios/adminAxios";
 import Swal from "sweetalert2";
+import { useErrorHandler } from "../../../hooks/ErrorHandler";
 
 function UserListTable({type}) {
   console.log(localStorage.getItem("persist:Admin"));
-
+  const {adminAutheticationHandler } = useErrorHandler()
   const user = type
   console.log(user+1);
   const [userData, setUserDate] = useState([]);
-
+  console.log(userData);
   useEffect(() => {
     adminAxios
       .get(`/all-${user}`)
@@ -17,6 +18,7 @@ function UserListTable({type}) {
         setUserDate(response.data);
       })
       .catch((error) => {
+        adminAutheticationHandler(error)
         console.log(error);
       });
   }, [user]);
@@ -63,6 +65,7 @@ function UserListTable({type}) {
               timerProgressBar: true,
               showConfirmButton: false,
             });
+            adminAutheticationHandler(error)
           });
       }
     });
@@ -84,11 +87,14 @@ function UserListTable({type}) {
               <th scope="col" class="px-6 py-3">
                 email
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th>
+               verifyied
+              </th>
+              <th scope="col" class={user!== 'advisor' ?  "px-6 py-3 " : "hidden"}>
                 Domain
               </th>
 
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" class={user=== 'student'?  "px-6 py-3 " : "hidden"}>
                 Week
               </th>
               
@@ -109,10 +115,11 @@ function UserListTable({type}) {
                     {obj.name}
                   </th>
                   <td class="px-6 py-4">{obj.email}</td>
-                  <td class="px-6 py-4"></td>
-                  <td class="px-6 py-4">Yes</td>
+                  <td class={obj?.isProfileVerified === true ? "px-6 py-4 text-green-600 font-semibold" : "px-6 py-4 font-semibold text-red-600" }>{obj?.isProfileVerified === true ? "verified" : "not verified"}</td>
+                  <td class={user !== 'advisor' ? "px-6 py-4" : 'hidden'}>{obj?.domain?.name}</td>
+                  <td class={user=== 'student'?  "px-6 py-4" : 'hidden'}>{obj?.week}</td>
 
-                  <td class="flex items-center px-6 py-4 space-x-3">
+                  <td class={obj?.isProfileVerified === true ? "flex items-center px-6 py-4 space-x-3" : "hidden"}>
                     <a
                       href="#"
                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -130,6 +137,20 @@ function UserListTable({type}) {
                       }
                     >
                       {obj.isBlocked === true ? "unblock" : "block"}
+                    </a>
+                  </td>
+                  <td class={obj?.isProfileVerified !== true ? "flex items-center px-6 py-4 space-x-3" : "hidden"}>
+                    <a
+                      href="#"
+                      class="font-medium text-orange-300 dark:text-orange-400 hover:underline"
+                      onClick={() =>
+                        blockUser(
+                          obj._id,
+                          obj.isBlocked === true ? "unblock" : "block"
+                        )
+                      }
+                    >Send Mail
+                      
                     </a>
                   </td>
                 </tr>

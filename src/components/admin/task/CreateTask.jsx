@@ -19,7 +19,7 @@ function CreateTask() {
 
   const formik = useFormik({
     initialValues: {
-      weekNo: 0,
+      weekNo: '',
       personalDevelopmentWorkout: [],
       technicalWorkouts: [],
       miscellaneousWorkouts: [],
@@ -27,16 +27,19 @@ function CreateTask() {
     },
     validationSchema: Yup.object({
       domain: Yup.string().required("Please select a domain"),
-      personalDevelopmentWorkout: Yup.array().required(
-        "Personal development workouts are required"
-      ),
-      technicalWorkouts: Yup.array().required(
-        "Technical workouts are required"
-      ),
-      miscellaneousWorkouts: Yup.array().required(
-        "Miscellaneous workouts are required"
-      ),
-      weekNo: Yup.number().required("Week number is required"),
+      personalDevelopmentWorkout: Yup.array()
+      .required("Personal development workouts are required")
+      .min(1, "At least one personal development workout is required"),
+  
+    technicalWorkouts: Yup.array()
+      .required("Technical workouts are required")
+      .min(1, "At least one technical workout is required"),
+  
+    miscellaneousWorkouts: Yup.array()
+      .required("Miscellaneous workouts are required")
+      .min(1, "At least one miscellaneous workout is required"),
+      
+      weekNo: Yup.number().required("Week number is required").min(1).max(30),
     }),
     onSubmit: (values , { setSubmitting, resetForm }) => {
       console.log(values);
@@ -155,6 +158,8 @@ function CreateTask() {
                       </button>
                     </div>
                   ))}
+                  
+
                   <button
                     type="button"
                     className="mt-2 bg-blue-500 text-white px-3 py-1 rounded-md"

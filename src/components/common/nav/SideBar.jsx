@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import AdvisorSideBar from "../../advisor/AdvisorSideBar";
 
 function SideBar({ data, type }) {
   const isSidebarOpen = data;
@@ -110,6 +111,7 @@ function SideBar({ data, type }) {
               <span class="flex-1 ml-3 whitespace-nowrap">Create Task</span>
             </a>
           </li>
+          {user === 'advisor' ? <AdvisorSideBar/> : ""}
           <li className={user === "admin" ? "hidden" : ''}>
             <a
               href="#"

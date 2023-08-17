@@ -9,7 +9,7 @@ function AddDomain() {
       name: "",
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Domain name is required"),
+      name: Yup.string().trim().required("Domain name is required"),
     }),
     onSubmit: (values, { setSubmitting, resetForm }) => {
         console.log(values);

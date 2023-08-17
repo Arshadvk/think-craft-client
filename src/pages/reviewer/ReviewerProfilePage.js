@@ -1,12 +1,13 @@
 import React from 'react'
 import Navbar from '../../components/common/nav/Navbar'
-import ReviewerProfile from '../../components/reviewer/profile/ReviewerProfile'
+import ProfileTable from '../../components/common/profile/Profile'
+
 
 function ReviewerProfilePage() {
   return (
     <div>
        <Navbar type={"reviewer"}/>
-       <ReviewerProfile />
+       <ProfileTable type={'reviewer'} />
     </div>
   )
 }

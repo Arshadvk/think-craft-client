@@ -6,21 +6,33 @@ import { useNavigate, useParams } from "react-router-dom";
 import advisorAxios from "../../../axios/advisorAxios";
 import reviewerAxios from "../../../axios/reviewerAxios";
 
+
 function SetProfile({ type }) {
   const [domain, setDomain] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
   const user = type;
+
   useEffect(() => {
     studentAxios
-      .get("/get-domaim-info")
+      .get(`/get-domaim-info/${id}`)
       .then((response) => {
         setDomain(response.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+
+      reviewerAxios.get(`/get-domaim-info/${id}`)
+      .then((response) => {
+        setDomain(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+
+  }, [user]);
   const formik = useFormik({
     initialValues: {
       number: "",
@@ -43,12 +55,17 @@ function SetProfile({ type }) {
       address: Yup.string().required("Address is required"),
       dob: Yup.date().required("Date of Birth is required"),
       age: Yup.number().required("Age is required"),
+      domain: Yup.string().when("user", {
+        is: (user) => user === "student" || user === "reviewer",
+        then: Yup.string().required("Domain is required"),
+        
+      }),
       
     }),
-    onSubmit: (values) => {
+    onSubmit: (userData) => {
       if (user === "student") {
         studentAxios
-          .put(`/edit-profile/${id}`, { values })
+          .put(`/set-profile/${id}`, { userData })
           .then((res) => {
             const result = res.data;
             console.log(result);
@@ -59,7 +76,7 @@ function SetProfile({ type }) {
           });
       } else if (user === "advisor") {
         advisorAxios
-          .put(`/edit-profile/${id}`, { values })
+          .put(`/set-profile/${id}`, { userData })
           .then((res) => {
             const result = res.data;
             console.log(result);
@@ -70,7 +87,7 @@ function SetProfile({ type }) {
           });
       } else if (user === "reviewer") {
         reviewerAxios
-          .put(`/edit-profile/${id}`, { values })
+          .put(`/set-profile/${id}`, { userData })
           .then((res) => {
             const result = res.data;
             console.log(result);
@@ -81,7 +98,7 @@ function SetProfile({ type }) {
           });
       }
 
-      console.log(values);
+      console.log(userData);
     },
   });
 

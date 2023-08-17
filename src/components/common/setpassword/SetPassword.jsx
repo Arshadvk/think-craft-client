@@ -7,6 +7,7 @@ import reviewerAxios from '../../../axios/reviewerAxios'
 
 function SetPassword({ type }) {
   const user = type;
+  console.log(user);
   const { id } = useParams();
   const [password, setPassword] = useState("");
   const [password1, setPassword1] = useState("");
@@ -29,7 +30,7 @@ function SetPassword({ type }) {
         } else {
           setErrorMessage2("");
           if (user === "student") {
-            studentAxios.put(`/setpassword/${id}`, { password }).then((res) => {
+            studentAxios.put(`/set-password/${id}`, { password }).then((res) => {
                 const result = res.data;
                 console.log(result);
                 navigate(`/set-profile/${id}`);
@@ -39,7 +40,7 @@ function SetPassword({ type }) {
               });
           }else if (user === "advisor"){
             
-            advisorAxios.put('/setpassword',{password,email:"maxarshu7560@gmail.com"}).then((res)=>{
+            advisorAxios.put(`/set-password/${id}`, { password }).then((res)=>{
               const result = res.data;
               console.log(result);
               navigate(`/advisor/set-profile/${id}`);
@@ -47,7 +48,7 @@ function SetPassword({ type }) {
             setErrorMessage2(error.message);
           })
           }else if (user === "reviewer" ){
-            reviewerAxios.put('/setpassword',{password,email:"maxarshu7560@gmail.com"}).then((res)=>{
+            reviewerAxios.put(`/set-password/${id}`, { password }).then((res)=>{
               const result = res.data;
               console.log(result);
               navigate(`/reviewer/set-profile/${id}`);

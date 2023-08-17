@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import adminAxios from '../../../axios/adminAxios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useErrorHandler } from '../../../hooks/ErrorHandler';
 
 function CreateUser() {
-  console.log(localStorage.getItem("Admin"));
   const [role, setRole] = useState('student');
-
+  const {adminAutheticationHandler} = useErrorHandler()
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
+    name: Yup.string().trim().required('Name is required').test('not-only-spaces', 'Name is required', value => value.trim() !== ''),
     email: Yup.string().email('Invalid email').required('Email is required'),
   });
   
@@ -22,13 +23,14 @@ function CreateUser() {
     adminAxios
       .post(`/add-${role}`, values)
       .then((response) => {
-        // Handle success, for example, show a success message or redirect
+        toast.success('User added successfully.');
         console.log('User added successfully.');
         resetForm();
       })
       .catch((error) => {
-        // Handle errors, for example, display error messages
-        console.error('Error adding user:', error);
+        toast.error(error?.response?.data?.message);
+        console.error('Error adding user:', error)
+        adminAutheticationHandler(error)
       })
       .finally(() => {
         setSubmitting(false);
@@ -91,6 +93,7 @@ function CreateUser() {
           
         </div>
       </section>
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 }
