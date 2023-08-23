@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import profile from "../../../assets/image/profile student.jpg";
+import girlProfile from '../../../assets/image/girlProfile.jpg'
 import advisorProfile from '../../../assets/image/advisorProfile.jpg'
 import reviewerProfile from '../../../assets/image/reviewerProfile.jpg'
 import { useFormik } from "formik";
@@ -52,7 +53,7 @@ function ProfileTable({type}) {
               onSubmit={formik.handleSubmit}>
           <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-lg max-w-3xl p-5 ">
             <div className=" w-1/2 rounded-2xl overflow-hidden">
-              <img className="rounded-2xl mt-5 mb-1" src={ user === 'student' ? profile : user === 'advisor' ? advisorProfile : reviewerProfile} alt="" />
+              <img className="rounded-2xl mt-5 mb-1" src={ user === 'advisor' ? advisorProfile : user === "reviewer" ? reviewerProfile : profile } alt="" />
               <div className="items-end  relative">
                 <button type={showInput ? "submit" : "button"}
                 
@@ -63,9 +64,7 @@ function ProfileTable({type}) {
                 >
                   <span>{showInput ? "Save" : "Edit Profile"}</span>
                 </button>
-                <button className="rounded-xl bg-teal-600 w-full p-1 px-4 mb-2 text-xs font-semibold">
-                  <span>Change Password</span>
-                </button>
+                
               </div>
             </div>
 
@@ -75,6 +74,9 @@ function ProfileTable({type}) {
               </h1>
               <h1 className="m-2">
                 full name : <b>{userData?.name}</b>
+              </h1>
+              <hr />   <h1 className="m-2">
+                email : <b>{userData?.email}</b>
               </h1>
               <hr />
               <h1 className={user !== 'advisor' ?  "m-2" : "hidden"}>

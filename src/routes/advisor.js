@@ -19,8 +19,8 @@ function  AdvisorRoute() {
         <Route exact path='/set-password/:id' element={<SetPassword type={'advisor'}/>}/>
         <Route exact path='/profile' element= {IsAdvisor.Token ? <AdvisorProfilePage/> : <Login type={'advisor'}/>} />
         <Route exact path='/set-profile/:id' element={<SetProfile type={'advisor'}/>} />
-        <Route exact path='/reviewer-list' element={<ReviewerListPage/>}/>
-        <Route exact path='/book-slot' element={<SlotBookingPage/>}/>
+        <Route exact path='/reviewer-list/:domain' element={<ReviewerListPage/>}/>
+        <Route exact path='/book-slot/:id' element={<SlotBookingPage/>}/>
         
 
       </Routes>

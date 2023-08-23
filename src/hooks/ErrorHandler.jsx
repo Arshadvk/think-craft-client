@@ -2,8 +2,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { StudentLogut } from "../redux/student/studentAuth";
 import { AdminLogout } from "../redux/admin/adminAuth";
-import { IsAdvisorLogin } from "../redux/advisor/advisorAuth";
-import { IsReviewerLogin } from "../redux/reviewer/reviewerAuth";
+import { AdvisorLogout} from "../redux/advisor/advisorAuth";
+import { ReviewerLogout } from "../redux/reviewer/reviewerAuth";
 
 export function useErrorHandler(){
     const navigate = useNavigate()
@@ -26,14 +26,14 @@ export function useErrorHandler(){
     function advisorAutheticationHandler(props){
         const {response : {status , data }} = props
         if (status === 401  && data.Auth === false ){
-            dispatch(IsAdvisorLogin())
+            dispatch(AdvisorLogout())
             navigate('/advisor/login')
         }
     }
     function reviewerAutheticationHandler(props){
         const {response : {status, data}} = props
         if (status === 401 && data.Auth === false){
-            dispatch(IsReviewerLogin())
+            dispatch(ReviewerLogout())
             navigate('/reviewer/login')
         }
     }

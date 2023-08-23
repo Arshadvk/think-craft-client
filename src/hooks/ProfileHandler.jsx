@@ -21,11 +21,11 @@ export function useProfileDetails({ user, setUserData }) {
         console.log("hello");
         console.log(user);
         if (user === "student") {
-          console.log("userrrrr");
           response = await studentAxios.get("/profile");
         } else if (user === "advisor") {
           response = await advisorAxios.get("/profile");
         } else if (user === "reviewer") {
+          console.log("userrrrr");
           response = await reviewerAxios.get("/profile");
         }
 
@@ -33,9 +33,13 @@ export function useProfileDetails({ user, setUserData }) {
       } catch (error) {
         if (user === "student") {
           studentAuthenticationHandler(error);
-        } else if (user === "advisor") {
+        } 
+        if (user === "advisor") {
           advisorAutheticationHandler(error);
-        } else if (user === "reviewer") {
+        } 
+        if (user === "reviewer") {
+          console.log("error" , error);
+          
           reviewerAutheticationHandler(error);
         }
         console.error("Error fetching profile details:", error);

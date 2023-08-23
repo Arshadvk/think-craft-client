@@ -7,6 +7,7 @@ import SetPassword from '../components/common/setpassword/SetPassword';
 import SetProfile from '../components/common/profile/SetProfile';
 import Login from '../components/common/login/Login';
 import Task from '../pages/student/Task';
+import Manifest from '../pages/student/Manifest';
 
 
 function StudentRoute() {
@@ -21,6 +22,7 @@ function StudentRoute() {
         <Route exact path='/profile' element={<Profile/>} />
         <Route exact path='/set-profile/:id' element={<SetProfile type={"student"}/>} />
         <Route exact path='/task-upload'  element={<Task/>}/>
+        <Route exact path='/manifest'  element={<Manifest/>}/>
         
         
       </Routes>

@@ -9,7 +9,7 @@ function AdvisorSideBar() {
         <a
           href="#"
           class="flex items-center p-2 text-bg[#] rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-          onClick={() => navigate("/advisor/reviewer-list")}
+          onClick={() => navigate("")}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
