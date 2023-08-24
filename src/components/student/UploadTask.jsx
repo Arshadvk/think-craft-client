@@ -11,43 +11,40 @@ function UploadTask() {
     async function getTask() {
       try {
         const data = await loadTasks();
-        setTask(data.tasks);
+        console.log(await data , "hello")
+        setTask(data?.tasks);
       } catch (error) {
         console.log(error);
       }
     }
     getTask();
   }, []);
-  
+  console.log(task);
   const formik = useFormik({
     initialValues: {
-      personalDevelopmentWorkoutDesc: Array(task[0]?.personalDevelopmentWorkout.length),
-      technicalWorkoutDesc: Array(task[0]?.technicalWorkouts.length),
-      miscellaneousWorkoutDesc: Array(task[0]?.miscellaneousWorkouts.length)
+      personalDevelopmentWorkoutDesc: Array(task?.personalDevelopmentWorkout?.length),
+      technicalWorkoutDesc: Array(task?.technicalWorkouts),
+      miscellaneousWorkoutDesc: Array(task?.miscellaneousWorkouts)
     },
     validationSchema: Yup.object({
       personalDevelopmentWorkoutDesc: Yup.string(),
       technicalWorkoutDesc: Yup.string(),
       miscellaneousWorkoutDesc: Yup.string()
     }),
-    onSubmit: (values  ,{resetForm}) => {
-    
+    onSubmit: (values, { resetForm }) => {
       console.log("Submitted values:", values);
-      resetForm()
+      resetForm();
     }
   });
   console.log("tasks" , task);
-  console.log(task[0]?.personalDevelopmentWorkout.length);
-  console.log(task[0]?.technicalWorkouts.length)
-  console.log(task[0]?.miscellaneousWorkouts.length);
+  console.log(task?.personalDevelopmentWorkout);
+  console.log(task?.technicalWorkouts)
+  console.log(task?.miscellaneousWorkouts);
   console.log(updWorkout);
-  const handleSubmit = () =>{
-    console.log('hello');
-  }
+
   return (
-    <div className="lg:ml-64">
-      <section className="bg-gray-50 min-h-screen items-center justify-center p-5 lg:px-16 pt-5 pt-0 mt-14">
-        {task.map((taskObj) => (
+<>
+        {task?.map((taskObj) => (
           <div key={taskObj._id}>
              <form onSubmit={formik.handleSubmit}>
             <div className="bg-[FFFFFF]-100-100 rounded-lg shadow-lg w-12/12 px-10 py-5 my-5 mx-2">
@@ -65,7 +62,7 @@ function UploadTask() {
                   <textarea
                     type="text"
                     name="personalDevelopmentWorkoutDesc"
-                    value={updWorkout[index]}
+                    value={updWorkout}
                     onChange={(e)=>{setPdWork(e.target.value)}}
                     onBlur={formik.handleBlur}
                     className="w-full text-sm"
@@ -79,7 +76,7 @@ function UploadTask() {
               <label htmlFor="" className="font-semibold text-sm mb-5">
                 Technical Workout :
               </label>
-              {taskObj.technicalWorkouts.map((techWorkout, index) => (
+              {taskObj.technicalWorkouts?.map((techWorkout, index) => (
                 <>
                   <h1 className="text-sm pb-2">
                     {index + 1} ) {techWorkout}
@@ -87,7 +84,7 @@ function UploadTask() {
                   <textarea
                     type="text"
                     name="technicalWorkoutDesc"
-                    value={formik.values.technicalWorkoutDesc[index]}
+                    value={`${formik.values.technicalWorkoutDesc}${index}`}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     className="w-full text-sm"
@@ -108,7 +105,7 @@ function UploadTask() {
                   </h1>
                   <textarea
                     type="text"
-                    value={formik.values.miscellaneousWorkoutDesc[index]}
+                    value={`${formik.values.miscellaneousWorkoutDesc}${index}`}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     className="w-full text-sm"
@@ -118,14 +115,14 @@ function UploadTask() {
               ))}
               <div className="flex items-end">
 
-            <button type="submit" onClick={handleSubmit} className="bg-black text-white p-2 rounded-lg">Upload</button>
+            <button type="submit"  className="bg-black text-white p-2 rounded-lg">Upload</button>
               </div>
             </div>
             </form>
           </div>
         ))}
-      </section>
-    </div>
+   
+            </>
   );
 }
 

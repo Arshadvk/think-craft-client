@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AdvisorSideBar from "../../advisor/AdvisorSideBar";
 import StudentSideBar from "../../student/StudentNavBar";
 import AdminSideBar from "../../admin/AdminSideBar";
+import ReviewerSideBar from "../../reviewer/ReviewerSideBar";
 
 function SideBar({ data, type }) {
   const isSidebarOpen = data;
@@ -42,6 +43,7 @@ function SideBar({ data, type }) {
       
           {user === 'admin' ? <AdminSideBar />  : "" }
           {user === 'advisor' ? <AdvisorSideBar/> : ""}
+          {user === 'reviewer' ? <ReviewerSideBar/> : ""}
           {user === '' ? <StudentSideBar/> : ""}
 
           <li className={user === "admin" ? "hidden" : ''}>

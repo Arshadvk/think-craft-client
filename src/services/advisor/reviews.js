@@ -31,7 +31,7 @@ export const findReviewer = async (id) => {
     try {
         console.log(id);
         const response = await advisorAxios.get(`/reviewer-details/${id}` )
-        return response.data.data
+        return response.data?.data
     } catch (error) {
         console.log(error);
     }

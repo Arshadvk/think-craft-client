@@ -7,6 +7,7 @@ import ReviewerProfilePage from '../pages/reviewer/ReviewerProfilePage'
 import SetPassword from '../components/common/setpassword/SetPassword'
 import SetProfile from '../components/common/profile/SetProfile'
 import Login from '../components/common/login/Login'
+import ReviewerSlotListing from '../pages/reviewer/ReviewerSlotListing'
 
 function ReviewerRoute() {
   const IsReviewer = useSelector((state)=>state.Reviewer)
@@ -18,6 +19,7 @@ function ReviewerRoute() {
         <Route exact path='/set-password/:id' element={<SetPassword type={"reviewer"}/>} />
         <Route exact path='/profile' element={<ReviewerProfilePage/>} />
         <Route exact path='/set-profile/:id' element={<SetProfile type={'reviewer'}/>}/>
+        <Route exact path='/slots-list' element={<ReviewerSlotListing/>}/>
         
       </Routes>
     </div>

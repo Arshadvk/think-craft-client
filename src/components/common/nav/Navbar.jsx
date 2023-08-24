@@ -6,7 +6,7 @@ import { AdminLogout } from "../../../redux/admin/adminAuth";
 import { StudentLogut } from "../../../redux/student/studentAuth";
 import { ReviewerLogout } from "../../../redux/reviewer/reviewerAuth";
 import { AdvisorLogout } from "../../../redux/advisor/advisorAuth";
-
+import profilePic from "../../../assets/image/profile.jpg";
 function Navbar({ type }) {
   let user = type;
   console.log(user);
@@ -75,6 +75,9 @@ function Navbar({ type }) {
                 <div>
                   <button
                     type="button"
+                    onClick={() =>
+                      navigate(user === "" ? `/profile` : `/${user}/profile`)
+                    }
                     className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                     aria-expanded="false"
                     data-dropdown-toggle="dropdown-user"
@@ -82,7 +85,7 @@ function Navbar({ type }) {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="w-8 h-8 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                      src={profilePic}
                       alt="user photo"
                     />
                   </button>
@@ -112,9 +115,7 @@ function Navbar({ type }) {
                 <div
                   className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
                   id="dropdown-user"
-                >
-                  {/* Dropdown menu content */}
-                </div>
+                ></div>
               </div>
             </div>
           </div>
