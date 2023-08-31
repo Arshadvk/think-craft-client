@@ -29,7 +29,7 @@ function ReviewsList() {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {reviewData?.map((obj) => {
           return (
-            <div className="col-span-1 pt-4 bg-white border mx-2 border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700 shadow-2xl">
+            <div className="col-span-1 pt-4 m-3 bg-white border mx-2 border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700 shadow-2xl">
               <div className="flex flex-col items-center pb-10">
                 <img
                   className="w-24 h-24 mb-3 rounded-full shadow-lg"
@@ -45,6 +45,7 @@ function ReviewsList() {
                 <span className="text-sm text-gray-500 dark:text-gray-400">
                   {obj?.student?.domain?.name}
                 </span>
+                <button className="text-white bg-orange-400 p-1 rounded px-2 mt-2">Tasks</button>
                 <div className="flex mt-4 space-x-1 md:mt-6">
                   <button
                     onClick={()=>handleBookSlot(obj?.student?.domain?._id)}

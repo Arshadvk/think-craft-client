@@ -41,7 +41,8 @@ function SetProfile({ type }) {
       address: "",
       dob: "",
       age: "",
-      domain:""
+      domain:"" ,
+      domains:[]
     },
     validationSchema: Yup.object({
       number: Yup.string()
@@ -56,11 +57,14 @@ function SetProfile({ type }) {
       dob: Yup.date().required("Date of Birth is required"),
       age: Yup.number().required("Age is required"),
       domain: Yup.string().when("user", {
-        is: (user) => user === "student" || user === "reviewer",
+        is: (user) => user === "student",
         then: Yup.string().required("Domain is required"),
         
       }),
-      
+      domain: Yup.array().when("user", {
+        is: (user) => user === "reviewer",
+        then: Yup.array().required("Domain is required"),     
+      }),
     }),
     onSubmit: (userData) => {
       if (user === "student") {
@@ -157,7 +161,7 @@ function SetProfile({ type }) {
                 ) : null}
               </div>
 
-              <div className={ user === "advisor" ? "hidden relative" : "relative"}>
+              <div className={ user === "student" ? " relative" : "hidden relative"}>
                 <label htmlFor="domain" className="mt-5 font-semibold text-sm">
                   Select Domain
                 </label>
@@ -185,6 +189,46 @@ function SetProfile({ type }) {
                   </div>
                 ) : null}
               </div>
+              
+
+              <div className={`mt-5 font-semibold text-sm ${user === "reviewer" ? "" : "hidden"}`}>
+  <label className="block">Select Domains</label>
+  {domain.map((d) => (
+    <div key={d.id} className="flex items-center">
+      <input 
+        type="checkbox"
+        name={`domain-${d._id}`}
+        id={`domain-${d._id}`}
+        
+        checked={formik.values.domains.includes(d._id)} // Check if domain ID is included in formik values
+        onChange={(e) => {
+          const domainId = d._id;
+          const isChecked = e.target.checked;
+          formik.setFieldValue(
+            'domains',
+            isChecked
+              ? [...formik.values.domains, domainId] // Add domain ID if checked
+              : formik.values.domains.filter(id => id !== domainId) // Remove domain ID if unchecked
+          );
+        }}
+        className={`p-2 rounded-xl border ${
+          formik.touched.domains && formik.errors.domains
+            ? "border-red-500"
+            : ""
+        }`}
+      />
+      <label htmlFor={`domain-${d._id}`} className="ml-2">
+        {d.name}
+      </label>
+    </div>
+  ))}
+  {formik.touched.domains && formik.errors.domains ? (
+    <div className="text-red-500 text-sm font-semibold pt-1">
+      {formik.errors.domains}
+    </div>
+  ) : null}
+</div>
+
 
               <div className="relative">
                 <label htmlFor="dob" className="font-semibold text-sm">

@@ -72,7 +72,7 @@ function Navbar({ type }) {
             </div>
             <div className="flex items-center">
               <div className="flex items-center ml-3">
-                <div>
+                <div className={user === 'admin' ? "hidden" : ""}>
                   <button
                     type="button"
                     onClick={() =>

@@ -84,6 +84,13 @@ function ProfileTable({ type }) {
                 >
                   <span>{showInput ? "Save" : "Edit Profile"}</span>
                 </button>
+                <button
+                  type={showInput ? "submit" : "button"}
+                  className="rounded-xl bg-teal-600 w-full p-1 px-4 mb-1 text-xs font-semibold"
+                
+                >
+                  <span>change password</span>
+                </button>
               </div>
             </div>
 
@@ -99,10 +106,20 @@ function ProfileTable({ type }) {
                 email : <b>{userData?.email}</b>
               </h1>
               <hr />
-              <h1 className={user !== "advisor" ? "m-2" : "hidden"}>
+              <h1 className={user === "student" ? "m-2" : "hidden"}>
                 Domain: <b>{userData?.domain?.name}</b>
               </h1>
               <hr />
+              <h1 className={user === "reviewer" ? "m-2" : "hidden"}>
+                Domain:
+                {user === 'reviewer' && userData?.domain?.map((domain)=>{
+                 return(
+
+                   <b> {domain?.name}  </b>
+                 ) 
+                })}
+              <hr />
+              </h1>
               <h2 className={user === "student" ? "m-2" : "hidden"}>
                 {" "}
                 week : <b>{userData?.week}</b>

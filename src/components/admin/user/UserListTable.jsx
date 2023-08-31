@@ -72,9 +72,8 @@ function UserListTable({type}) {
   };
 
   return (
-    <div className="lg:ml-64">
-      <section className="bg-gray-50 min-h-screen flex items-center justify-center p-4 pt-0">
-      <div class="relative overflow-x-auto shadow-md rounded-lg ">
+  <>
+      <div class="relative overflow-x-auto shadow-md rounded-lg pt-2">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -116,16 +115,18 @@ function UserListTable({type}) {
                   </th>
                   <td class="px-6 py-4">{obj.email}</td>
                   <td class={obj?.isProfileVerified === true ? "px-6 py-4 text-green-600 font-semibold" : "px-6 py-4 font-semibold text-red-600" }>{obj?.isProfileVerified === true ? "verified" : "not verified"}</td>
-                  <td class={user !== 'advisor' ? "px-6 py-4" : 'hidden'}>{obj?.domain?.name}</td>
+                  <td class={user === 'student' ? "px-6 py-4" : 'hidden'}>{obj?.domain?.name}</td>
+                  <td class={user=== 'reviewer'? "px-6 py-4" : "hidden"}> 
+                  {user=== 'reviewer' && obj?.domain?.map((domain)=>{
+                    return(
+                      domain?.name +" "
+                    )
+                  }) }
+                      </td>
                   <td class={user=== 'student'?  "px-6 py-4" : 'hidden'}>{obj?.week}</td>
 
                   <td class={obj?.isProfileVerified === true ? "flex items-center px-6 py-4 space-x-3" : "hidden"}>
-                    <a
-                      href="#"
-                      class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      View
-                    </a>
+                   
                     <a
                       href="#"
                       class="font-medium text-red-600 dark:text-red-500 hover:underline"
@@ -159,9 +160,7 @@ function UserListTable({type}) {
           </tbody>
         </table>
       </div>
-      </section>
-      
-    </div>
+  </> 
   );
 }
 

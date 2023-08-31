@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import UserListPage from '../pages/admin/UserListPage'
 import CreateTaskPage from '../pages/admin/CreateTaskPage'
 import Login from '../components/common/login/Login'
+import AdminTaskList from '../pages/admin/AdminTaskList'
 
 
 function AdminRoute() {
@@ -18,6 +19,7 @@ function AdminRoute() {
         <Route  exact path='/reviewer-list' element={IsAdmin.Token ? <UserListPage type={"reviewer"}/>: <Login type={'admin'}/>}/>
         <Route  exact path='/advisor-list' element={IsAdmin.Token ? <UserListPage type={"advisor"}/> : <Login type={'admin'}/>}/>
         <Route  exact path='/create-task' element={IsAdmin.Token ? <CreateTaskPage/> : <Login type={'admin'}/>}/>
+        <Route  exact path='/task-list' element={IsAdmin.Token ? <AdminTaskList/> : <Login type={'admin'}/>}/>
       </Routes>
     </div>
   )
