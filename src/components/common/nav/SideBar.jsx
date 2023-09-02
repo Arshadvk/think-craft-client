@@ -24,7 +24,7 @@ function SideBar({ data, type }) {
             <a
               href="#"
               class="flex items-center p-2 text-bg[#] rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              onClick={() => navigate(user ==="student" ? "/" : `/${user}`)}
+              onClick={() => navigate(user === "student" ? "/" : `/${user}`)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -40,13 +40,40 @@ function SideBar({ data, type }) {
               <span class="flex-1 ml-3 whitespace-nowrap">Home</span>
             </a>
           </li>
-      
-          {user === 'admin' ? <AdminSideBar />  : "" }
-          {user === 'advisor' ? <AdvisorSideBar/> : ""}
-          {user === 'reviewer' ? <ReviewerSideBar/> : ""}
-          {user === '' ? <StudentSideBar/> : ""}
 
-          <li className={user === "admin" ? "hidden" : ''}>
+          <li
+            className={
+              user === "" ? "hidden" : user === "admin" ? "hidden" : ""
+            }
+          >
+            <a
+              href="#"
+              class="flex items-center p-2 text-bg[#] rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              onClick={() => navigate(`/${user}/reviews-list`)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-list-ul"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+                />
+              </svg>
+              <span class="flex-1 ml-3 whitespace-nowrap">Reviews List</span>
+            </a>
+          </li>
+
+          {user === "admin" ? <AdminSideBar /> : ""}
+          {user === "advisor" ? <AdvisorSideBar /> : ""}
+          {user === "reviewer" ? <ReviewerSideBar /> : ""}
+          {user === "" ? <StudentSideBar /> : ""}
+
+          <li className={user === "admin" ? "hidden" : ""}>
             <a
               href="#"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"

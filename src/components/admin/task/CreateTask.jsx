@@ -10,7 +10,7 @@ function CreateTask() {
       .get('/all-domain')
       .then((res) => {
         console.log(res);
-        setDomain(res.data.data);
+        setDomain(res.data);
       })
       .catch((error) => {
         console.log(error);

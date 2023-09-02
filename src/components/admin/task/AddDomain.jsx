@@ -29,22 +29,20 @@ function AddDomain() {
   });
   
   return (
-    <div className="lg:ml-64">
-      <section className="bg-gray-50 min-h-screen flex items-center justify-center">
-        <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-xl max-w-3xl p-5">
+    <div className="flex items-center justify-center mt-24 w-full">
+        <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-xl max-w-3xl p-5 w-full justify-center m-5">
           <div className="px-16 items-center">
             <h1 className="font-extrabold text-3xl text-shadow text-center">
               ADD DOMAIN
             </h1>
             <form className="flex flex-col gap-1" onSubmit={formik.handleSubmit}>
               <div>
-                <label htmlFor="domain">Domain Name</label>
                 <input
                   type="text"
                   value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  className={`mt-2 p-2 rounded-lg border w-full ${
+                  className={`mt-7 p-2 rounded-lg border w-full ${
                     formik.touched.name && formik.errors.name
                       ? "border-red-500"
                       : ""
@@ -60,7 +58,7 @@ function AddDomain() {
               </div>
               <button
                 type="submit"
-                className="mt-2 p-2 font-bold text-slate-100 rounded-xl border bg-[#f18b31] hover:bg-[#fc7600] bg-[#ff7700] focus:outline-none focus:ring focus:ring-[#F4B680] hover:drop-shadow-xl"
+                className="mt-2 p-2 font-bold text-slate-100 rounded-xl border  hover:bg-[#fc7600] bg-[#ff7700] focus:outline-none focus:ring focus:ring-[#F4B680] hover:drop-shadow-xl"
                 disabled={formik.isSubmitting}
               >
                 {formik.isSubmitting ? "Adding..." : "ADD DOMAIN"}
@@ -68,8 +66,8 @@ function AddDomain() {
             </form>
           </div>
         </div>
-      </section>
-    </div>
+   
+        </div>
   );
 }
 

@@ -10,12 +10,14 @@ import {
   useProfileDetails,
 } from "../../../hooks/ProfileHandler";
 import { fetchCountryCode } from "../../../services/axios";
+import { Save } from "@mui/icons-material";
 
 function ProfileTable({ type }) {
   const user = type;
   const { updateProfile } = useEditProfile();
   const [userData, setUserData] = useState({});
   const [showInput, setShowInput] = useState(false);
+  const [changePassword , setChangePassword] = useState(false)
   const [code, setCode] = useState([]);
 
   const dob = new Date(userData?.dob);
@@ -85,11 +87,10 @@ function ProfileTable({ type }) {
                   <span>{showInput ? "Save" : "Edit Profile"}</span>
                 </button>
                 <button
-                  type={showInput ? "submit" : "button"}
+                  type={changePassword  ? "submit" : "button"}
                   className="rounded-xl bg-teal-600 w-full p-1 px-4 mb-1 text-xs font-semibold"
-                
                 >
-                  <span>change password</span>
+                  <span>{"change password"}</span>
                 </button>
               </div>
             </div>
@@ -150,7 +151,7 @@ function ProfileTable({ type }) {
                           </select>
                         <input
                           type="text"
-                          value={userData?.number} // Set initial value from user data
+                          value={userData?.number} 
                           onChange={(e) =>
                             setUserData({ ...userData, number: e.target.value })
                           }

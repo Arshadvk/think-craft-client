@@ -6,12 +6,13 @@ import { useNavigate } from "react-router-dom";
 
 function TaskBox() {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState([]);
   const { studentAuthenticationHandler } = useErrorHandler();
   useEffect(() => {
     async function fetchUser() {
       try {
         const response = await studentAxios.get("/profile");
+        console.log('profile dataa', response.data.data);
         setUserData(response.data.data);
       } catch (error) {
         console.log(error);

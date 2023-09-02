@@ -41,7 +41,7 @@ const ProfileCard = () => {
                 {obj?.name}
               </h5>
               <span className="text-sm text-gray-500 dark:text-gray-400">
-                {obj?.domain?.name}
+                {obj?.domain?.map((obj)=>obj.name + "  ")}
               </span>
               <div className="flex mt-4 space-x-1 md:mt-6">
                 <a

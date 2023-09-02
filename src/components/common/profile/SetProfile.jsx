@@ -17,7 +17,7 @@ function SetProfile({ type }) {
     studentAxios
       .get(`/get-domaim-info/${id}`)
       .then((response) => {
-        setDomain(response.data.data);
+        setDomain(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -25,7 +25,7 @@ function SetProfile({ type }) {
 
       reviewerAxios.get(`/get-domaim-info/${id}`)
       .then((response) => {
-        setDomain(response.data.data);
+        setDomain(response.data);
       })
       .catch((err) => {
         console.log(err);

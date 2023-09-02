@@ -7,10 +7,8 @@ const reviewerInstance = axios.create({
 });
 
 reviewerInstance.interceptors.request.use((req) => {
-    if (localStorage.getItem('persist:reviewer')) {
-        const reviewerCredentials = localStorage.getItem('persist:reviewer');
-        const reviewerCredentialObject = JSON.parse(reviewerCredentials);
-        const reviewerToken = reviewerCredentialObject?.Token.replace(/^"(.*)"$/, '$1');
+    if (localStorage.getItem('reviewer')) {
+        const reviewerToken = localStorage.getItem('reviewer');
         req.headers.authorization = reviewerToken;
   
     }

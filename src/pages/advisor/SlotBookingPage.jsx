@@ -39,7 +39,7 @@ function SlotBookingPage() {
       <div className="lg:ml-64">
         <section className="bg-gray-50 min-h-screen flex pt-24">
       <ReviewerDetails reviewer={reviewer}/>
-      <SlotBooking slots={slots} />
+      {slots ? <SlotBooking slots={slots} /> :<SlotBooking slots={[]} />}
       
       
       </section>

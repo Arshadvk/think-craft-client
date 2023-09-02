@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/common/nav/Navbar";
-import DomainCard from "../../components/admin/TaskCard";
-import { fetchDomainAdmin } from "../../services/admin/task";
+import TaskCard from "../../components/admin/TaskCard";
 import { useErrorHandler } from "../../hooks/ErrorHandler";
-import { useNavigate } from "react-router-dom";
+import { fetchTasksByDomain } from "../../services/admin/task";
+import { useNavigate, useParams } from "react-router-dom";
 
-function AdminTaskList() {
-  const [domains, setDomains] = useState([]);
+function AdminWeekListing() {
+  const navigate = useNavigate()
+  const { id } = useParams()
+  const [tasks, setTasks] = useState([]);
   const { adminAutheticationHandler } = useErrorHandler();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchDomainAdminHelper();
+    fetchTaskByDomainHelper(id);
   }, []);
 
-  const fetchDomainAdminHelper = async () => {
+  const fetchTaskByDomainHelper = async (id) => {
     try {
-      const data = await fetchDomainAdmin();
+      const data = await fetchTasksByDomain(id);
       console.log(data);
-      setDomains(data);
+      setTasks(data[0].tasks)
     } catch (error) {
       const {
         response: { status },
@@ -29,19 +30,19 @@ function AdminTaskList() {
     }
   };
 
-  const handleClickDomainCard = (id) => {
-    navigate(`/admin/week-list/${id}`);
-  };
+  const handleClickTaskCard = (id) =>{
+    navigate(`/admin/task-details/${id}`)
+  }
   return (
     <div>
       <Navbar type={"admin"} />
       <div className="lg:ml-64 mt-10">
         <section className="bg-gray-50 min-h-screen  items-center justify-center ">
-          <DomainCard data={domains} handleClick={handleClickDomainCard} type={"domain"} />
+          <TaskCard data={tasks} handleClick={handleClickTaskCard} type={"week"}/>
         </section>
       </div>
     </div>
   );
 }
 
-export default AdminTaskList;
+export default AdminWeekListing;

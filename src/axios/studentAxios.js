@@ -6,10 +6,8 @@ const studentInstance = axios.create({
     timeout : 3000
 })
 studentInstance.interceptors.request.use((req) => {
-    if (localStorage.getItem('persist:student')){
-        const studentCredentials  = localStorage.getItem('persist:student')
-        const studentCredentialObject = JSON.parse(studentCredentials)
-        const studentToken = studentCredentialObject?.Token.replace(/^"(.*)"$/, '$1');
+    if (localStorage.getItem('student')){
+        const studentToken  = localStorage.getItem('student')
         req.headers.authorization =  studentToken
     }
         return req; 

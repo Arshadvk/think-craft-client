@@ -3,7 +3,7 @@ import advisorAxios from '../../src/axios/advisorAxios'
 import  reviewerAxios  from "../../src/axios/reviewerAxios";
 import adminAxios from "../axios/adminAxios";
 
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { IsStudentLogin } from "../redux/student/studentAuth";
@@ -26,6 +26,7 @@ export function useLoginHandle(){
             console.log(result);
             if (result?.status) {
               const token = result.token;
+              localStorage.setItem('student' , token)
               dispatch(IsStudentLogin({ token: token }));
               navigate("/");
             } else {
@@ -41,8 +42,10 @@ export function useLoginHandle(){
             console.log(result);
             if (result?.status) {
               const token = result?.token;
+              localStorage.setItem('advisor' , token)
               dispatch(IsAdvisorLogin({ Token: token }));
-              navigate("/advisor");
+              console.log("token here",token);
+             navigate("/advisor")
             } else {
               setErrorMessage2(result?.message);
             }
@@ -57,6 +60,7 @@ export function useLoginHandle(){
             const result = res.data.message;
             if (result?.status) {
               const token = result.token;
+              localStorage.setItem('reviewer' , token)
               dispatch(IsReviewerLogin({ token: token }));
               navigate("/reviewer");
             } else {
@@ -71,6 +75,7 @@ export function useLoginHandle(){
             const result = res.data.message;
             if (result?.status) {
               const token = result?.token;
+              localStorage.setItem('admin' , token)
               dispatch(IsAdminLogin({ token: token }));
               navigate("/admin");
             } else {

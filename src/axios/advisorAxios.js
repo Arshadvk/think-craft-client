@@ -7,11 +7,11 @@ const advisorInstance = axios.create({
 });
 
 advisorInstance.interceptors.request.use((req) => {
-    if (localStorage.getItem('persist:advisor')) {
-        const advisorCredentials = localStorage.getItem('persist:advisor');
-        const advisorCredentialObject = JSON.parse(advisorCredentials);
-        const advisorToken = advisorCredentialObject?.Token.replace(/^"(.*)"$/, '$1');
+    if (localStorage.getItem('advisor')) {
+        const advisorToken = localStorage.getItem('advisor');
+ 
         req.headers.authorization = advisorToken;
+        console.log(advisorToken);
     }
     return req;
 });

@@ -16,7 +16,7 @@ function ReviewsList() {
     const reviewList = async () => {
       const res = await reviewslist();
       console.log(res);
-      setReviewData(await res?.data);
+      setReviewData(res?.data);
     };
     reviewList();
   }, []);

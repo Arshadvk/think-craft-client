@@ -7,6 +7,8 @@ import { StudentLogut } from "../../../redux/student/studentAuth";
 import { ReviewerLogout } from "../../../redux/reviewer/reviewerAuth";
 import { AdvisorLogout } from "../../../redux/advisor/advisorAuth";
 import profilePic from "../../../assets/image/profile.jpg";
+import Swal from "sweetalert2";
+
 function Navbar({ type }) {
   let user = type;
   console.log(user);
@@ -19,14 +21,29 @@ function Navbar({ type }) {
     setSidebarOpen(!isSidebarOpen);
   };
 
+  
   const handleLogout = () => {
-    if (user === "admin") dispatch(AdminLogout());
-    else if (user === "advisor") dispatch(AdvisorLogout());
-    else if (user === "reviewer") dispatch(ReviewerLogout());
-    else dispatch(StudentLogut());
-    if (user === "") navigate("/login");
-    else navigate(`/${user}/login`);
+    Swal.fire({
+      title: 'Logout',
+      text: 'Are you sure you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, logout!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (user === "admin") dispatch(AdminLogout());
+        else if (user === "advisor") dispatch(AdvisorLogout());
+        else if (user === "reviewer") dispatch(ReviewerLogout());
+        else dispatch(StudentLogut());
+  
+        if (user === "") navigate("/login");
+        else navigate(`/${user}/login`);
+      }
+    });
   };
+  
   return (
     <>
       <nav
@@ -51,7 +68,6 @@ function Navbar({ type }) {
                 onClick={toggleSidebar}
                 className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               >
-                <span className="sr-only">Open sidebar</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -72,7 +88,29 @@ function Navbar({ type }) {
             </div>
             <div className="flex items-center">
               <div className="flex items-center ml-3">
-                <div className={user === 'admin' ? "hidden" : ""}>
+                <div className={user === "admin" ? "hidden" : "pr-4"}>
+                <button
+                    type="button"
+                    onClick={() =>
+                      navigate(user === "" ? `/message` : `/${user}/message`)
+                    }
+                    className="flex text-sm rounded-full ring-4 ring-gray-300 dark:ring-gray-600 bg-white p-1 "
+                    aria-expanded="false"
+                    data-dropdown-toggle="dropdown-user"
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    class="bi bi-chat-text-fill shadow-2xl"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
+                  </svg>
+                  </button>
+                </div>
+                <div className={user === "admin" ? "hidden" : ""}>
                   <button
                     type="button"
                     onClick={() =>
@@ -82,7 +120,6 @@ function Navbar({ type }) {
                     aria-expanded="false"
                     data-dropdown-toggle="dropdown-user"
                   >
-                    <span className="sr-only">Open user menu</span>
                     <img
                       className="w-8 h-8 rounded-full"
                       src={profilePic}

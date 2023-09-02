@@ -38,9 +38,8 @@ function CreateUser() {
   };
 
   return (
-    <div class="lg:ml-64 mt-10">
-      <section className="bg-gray-50 min-h-screen flex items-center justify-center">
-        <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-xl max-w-3xl p-5">
+    <div className="flex items-center justify-center my-5 w-full">
+        <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-xl max-w-3xl p-5 w-full  justify-center m-5">
           <div className="px-16">
             <h1 className="font-extrabold text-3xl text-shadow text-center">
               ADD USER
@@ -51,7 +50,7 @@ function CreateUser() {
               onSubmit={handleSubmit}
             >
               {({ isSubmitting }) => (
-                <Form className="flex flex-col gap-4">
+                <Form className="flex flex-col gap-4 ">
                   <Field
                     type="text"
                     name="name"
@@ -92,9 +91,9 @@ function CreateUser() {
           </div>
           
         </div>
-      </section>
+    
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
-    </div>
+      </div>
   );
 }
 
