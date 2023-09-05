@@ -61,10 +61,7 @@ function SetProfile({ type }) {
         then: Yup.string().required("Domain is required"),
         
       }),
-      domain: Yup.array().when("user", {
-        is: (user) => user === "reviewer",
-        then: Yup.array().required("Domain is required"),     
-      }),
+      
     }),
     onSubmit: (userData) => {
       if (user === "student") {

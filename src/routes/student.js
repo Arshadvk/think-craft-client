@@ -9,6 +9,7 @@ import Login from '../components/common/login/Login';
 import Task from '../pages/student/Task';
 import Manifest from '../pages/student/Manifest';
 import MessagePage from '../components/common/message/MessagePage';
+import ReviewDetailPage from '../pages/student/ReviewDetailPage';
 
 
 function StudentRoute() {
@@ -27,6 +28,7 @@ function StudentRoute() {
         <Route exact path='/task-upload' element={IsAuth.Token ? <Task /> : <Login type={'student'} />} />
         <Route exact path='/manifest' element={IsAuth.Token ? <Manifest /> : <Login type={'student'} />} />
         <Route exact path='/message' element={IsAuth.Token ? <MessagePage type={''} /> : <Login type={'student'} />} />
+        <Route exact path='/review-details/:id' element={IsAuth.Token ? <ReviewDetailPage type={''} /> : <Login type={'student'} />} />
       </Routes>
     </div>
   )

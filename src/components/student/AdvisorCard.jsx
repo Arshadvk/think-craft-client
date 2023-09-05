@@ -1,6 +1,6 @@
 import React from 'react'
 import advisorImage from '../../assets/image/advisorProfile.jpg'
-function AdvisorCard() {
+function AdvisorCard({reviewData}) {
   return (
     <div className="flex items-center justify-center mt-5">
      <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-lg w-9/12 p-2 ">
@@ -10,7 +10,7 @@ function AdvisorCard() {
         </div>
         <div className="sm:w-3/4 px-3 flex items-center ">
           <h1 className="w-full font-semibold ">
-            Dheelip kumar
+            {reviewData?.advisor?.name}
           </h1>
           <div className="justify-end  mr-16 mt-2">
             <button

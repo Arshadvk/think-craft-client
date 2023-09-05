@@ -13,6 +13,7 @@ export function useErrorHandler(){
         const { response: { status, data } } = props
         if (status === 401 && data.Auth === false ){
             dispatch(StudentLogut())
+            localStorage.removeItem('student')
             navigate('/')
         }
     }
@@ -20,6 +21,7 @@ export function useErrorHandler(){
         const { response : {status ,data }} = props
         if (status === 401 && data.Auth === false ) {
             dispatch(AdminLogout())
+            localStorage.removeItem('admin')
             navigate('/admin/login')
         }
     }
@@ -27,6 +29,7 @@ export function useErrorHandler(){
         const {response : {status , data }} = props
         if (status === 401  && data.Auth === false ){
             dispatch(AdvisorLogout())
+            localStorage.removeItem('advisor')
             navigate('/advisor/login')
         }
     }
@@ -34,6 +37,7 @@ export function useErrorHandler(){
         const {response : {status, data}} = props
         if (status === 401 && data.Auth === false){
             dispatch(ReviewerLogout())
+            localStorage.removeItem('reviewer')
             navigate('/reviewer/login')
         }
     }

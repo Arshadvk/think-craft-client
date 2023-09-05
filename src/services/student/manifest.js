@@ -6,3 +6,9 @@ export const fetchManifestData = async () => {
     console.log(data, res);
     return data
 }
+
+export const fetchManifestPerReview = async (week)=>{
+    const res = await studentAxios.get(`/weekly-review?week=${week}`)
+    const data = await res.data
+    return data
+}

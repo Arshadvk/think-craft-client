@@ -44,7 +44,8 @@ function AddSlot() {
         }
 
         const currentTime = getCurrentTime();
-        if (values.timeStart <= currentTime) {
+        const currentDate = getCurrentDate()
+        if (values.timeStart <= currentTime && values.date === currentDate ) {
             errors.timeStart = 'Starting time must be greater than current time';
         }
 

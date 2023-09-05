@@ -29,7 +29,7 @@ export function useProfileDetails({ user, setUserData }) {
           response = await reviewerAxios.get("/profile");
         }
 
-        setUserData(response.data.data);
+        setUserData(response.data);
       } catch (error) {
         if (user === "student") {
           studentAuthenticationHandler(error);

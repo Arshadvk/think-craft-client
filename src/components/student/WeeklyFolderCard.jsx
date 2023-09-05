@@ -1,11 +1,17 @@
 import React from 'react'
 import file from '../../assets/image/file.jpg'
+import { useNavigate } from 'react-router-dom'
 function WeeklyFolderCard({reviewsData}) {
+  const navigate = useNavigate()
+  const handleClick = (week) =>{
+    
+    navigate(`/review-details/${week}`)
+  }
   return (<>
     <div className='grid py-10 px-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
       {reviewsData?.map((obj)=>{
         return(
-          <div className=" col-span-1 pt-4 m-1 bg-white border mx-2 border-gray-200 rounded-lg  dark:bg-slate-100 dark:border-slate-200 shadow-2xl">
+          <div className=" col-span-1 pt-4 m-1 bg-white border mx-2 border-gray-200 rounded-lg  dark:bg-slate-100 dark:border-slate-200 shadow-2xl" onClick={()=>handleClick(obj?.week)}>
        <div className="flex flex-col items-center px-6 py-3">
        <img
                 className="w-24 h-24 mb-3 rounded-full shadow-lg"

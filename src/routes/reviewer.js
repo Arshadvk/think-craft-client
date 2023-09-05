@@ -10,6 +10,7 @@ import Login from '../components/common/login/Login'
 import ReviewerSlotListing from '../pages/reviewer/ReviewerSlotListing'
 import MessagePage from '../components/common/message/MessagePage'
 import ReviewerReviewListingPage from '../pages/reviewer/ReviewerReviewListingPage'
+import ReviewerReviewDetail from '../pages/reviewer/ReviewerReviewDetail'
 
 function ReviewerRoute() {
   const IsReviewer = useSelector((state) => state.Reviewer)
@@ -26,6 +27,7 @@ function ReviewerRoute() {
         <Route exact path='/slots-list' element={IsReviewer.Token ? <ReviewerSlotListing /> : <Login type={'reviewer'} />} />
         <Route exact path='/message' element={IsReviewer.Token ? <MessagePage type={'reviewer'} /> : <Login type={'reviewer'} />} />
         <Route exact path='/reviews-list' element={IsReviewer.Token ? <ReviewerReviewListingPage /> : <Login type={'reviewer'} />} />
+        <Route exact path='/review-details/:id' element={IsReviewer.Token ? <ReviewerReviewDetail /> : <Login type={'reviewer'} />} />
       </Routes>
     </div>
   )

@@ -33,10 +33,23 @@ function Navbar({ type }) {
       confirmButtonText: 'Yes, logout!',
     }).then((result) => {
       if (result.isConfirmed) {
-        if (user === "admin") dispatch(AdminLogout());
-        else if (user === "advisor") dispatch(AdvisorLogout());
-        else if (user === "reviewer") dispatch(ReviewerLogout());
-        else dispatch(StudentLogut());
+        if (user === "admin"){
+          dispatch(AdminLogout());
+          localStorage.removeItem('admin')
+        } 
+        else if (user === "advisor"){
+          dispatch(AdvisorLogout()) 
+          localStorage.removeItem('advisor')
+        } 
+        else if (user === "reviewer"){
+          dispatch(ReviewerLogout());
+          localStorage.removeItem('reviewer')
+        } 
+        else{
+          dispatch(StudentLogut());
+          localStorage.removeItem('student')
+
+        } 
   
         if (user === "") navigate("/login");
         else navigate(`/${user}/login`);

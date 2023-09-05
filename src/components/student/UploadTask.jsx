@@ -59,15 +59,6 @@ function UploadTask() {
                   <h1 className="text-sm pb-2">
                     {index + 1} ) {pdWorkout}
                   </h1>
-                  <textarea
-                    type="text"
-                    name="personalDevelopmentWorkoutDesc"
-                    value={updWorkout}
-                    onChange={(e)=>{setPdWork(e.target.value)}}
-                    onBlur={formik.handleBlur}
-                    className="w-full text-sm"
-                    placeholder="Write a short description about this task"
-                  />
                 </>
               ))}
             </div>
@@ -81,15 +72,6 @@ function UploadTask() {
                   <h1 className="text-sm pb-2">
                     {index + 1} ) {techWorkout}
                   </h1>
-                  <textarea
-                    type="text"
-                    name="technicalWorkoutDesc"
-                    value={`${formik.values.technicalWorkoutDesc}${index}`}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    className="w-full text-sm"
-                    placeholder="Write a short description about this task"
-                  />
                 </>
               ))}
             </div>
@@ -103,14 +85,6 @@ function UploadTask() {
                   <h1 className="text-sm pb-2">
                     {index + 1} ) {miscWorkout}
                   </h1>
-                  <textarea
-                    type="text"
-                    value={`${formik.values.miscellaneousWorkoutDesc}${index}`}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    className="w-full text-sm"
-                    placeholder="Write a short description about this task"
-                  />
                 </>
               ))}
               <div className="flex items-end">
