@@ -6,6 +6,7 @@ function WeekDetailsBox({ userData, reviewData }) {
   const currentDate = moment();
   const daysLeft = targetDate.diff(currentDate, 'days');
   const formattedDate = moment(reviewData?.date).format('ddd MMM D');
+  console.log(reviewData);
 
   return (
     <>

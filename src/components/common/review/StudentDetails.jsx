@@ -20,11 +20,13 @@ function StudentDetails({ student, user, review }) {
       <div className="w-1/2 font-semibold text-sm">
       
         <h1>name : {student?.name}</h1>
-        <h1>week : {student.week < 10 ? "0" + student?.week : student?.week}</h1>
+        <h1>week : {review?.week < 10 ? "0" + review?.week  : review?.week }</h1>
         <h1>domain : {student?.domain?.name}</h1>
         <h1>advisor : {review?.advisor?.name}</h1>
-        <h1>reviewer : {review?.reviewer?.name} </h1>
-        <h1>date : {formattedDate}</h1>
+        <h1>reviewer : {review?.reviewer?.name ? review?.reviewer?.name : "not scheduled" } </h1>
+        <h1>review date : {formattedDate}</h1>
+        <h1>scheduled date : {review?.day}</h1>
+        <h1>time : {review?.time ? review?.time : "not scheduled"  }</h1>
       </div>
       </div>
     </div>

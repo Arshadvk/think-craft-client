@@ -11,6 +11,8 @@ import ReviewerSlotListing from '../pages/reviewer/ReviewerSlotListing'
 import MessagePage from '../components/common/message/MessagePage'
 import ReviewerReviewListingPage from '../pages/reviewer/ReviewerReviewListingPage'
 import ReviewerReviewDetail from '../pages/reviewer/ReviewerReviewDetail'
+import ReviewerAddSlot from '../pages/reviewer/ReviewerAddSlot'
+import ReviewerVideoCall from '../pages/reviewer/ReviewerVideoCall'
 
 function ReviewerRoute() {
   const IsReviewer = useSelector((state) => state.Reviewer)
@@ -23,11 +25,13 @@ function ReviewerRoute() {
 
         <Route exact path='/' element={!IsReviewer.Token ? <Login type={'reviewer'} /> : <ReviewerHomePage />} />
         <Route exact path='/login' element={IsReviewer.Token ? <ReviewerHomePage /> : <Login type={'reviewer'} />} />
+        <Route exact path='/add-slot' element={IsReviewer.Token ? <ReviewerAddSlot /> : <Login type={'reviewer'} />} />
         <Route exact path='/profile' element={IsReviewer.Token ? <ReviewerProfilePage /> : <Login type={'reviewer'} />} />
         <Route exact path='/slots-list' element={IsReviewer.Token ? <ReviewerSlotListing /> : <Login type={'reviewer'} />} />
         <Route exact path='/message' element={IsReviewer.Token ? <MessagePage type={'reviewer'} /> : <Login type={'reviewer'} />} />
         <Route exact path='/reviews-list' element={IsReviewer.Token ? <ReviewerReviewListingPage /> : <Login type={'reviewer'} />} />
         <Route exact path='/review-details/:id' element={IsReviewer.Token ? <ReviewerReviewDetail /> : <Login type={'reviewer'} />} />
+        <Route exact path='/call/:room' element={IsReviewer.Token ? <ReviewerVideoCall /> : <Login type={'reviewer'} />} />
       </Routes>
     </div>
   )

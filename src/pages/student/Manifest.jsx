@@ -14,7 +14,7 @@ function Manifest() {
     try {
       
       const data = await fetchManifestData()
-      setReviewsData(data[0].reviews)
+      setReviewsData(data)
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -24,13 +24,12 @@ function Manifest() {
       }
     }
   }
- 
   return (
     <div>
       <Navbar type={""} />
       <div className="lg:ml-64 mt-10">
         <section className="bg-gray-50 min-h-screen  items-center justify-center ">
-          <WeeklyFolderCard reviewsData={reviewsData}  />
+          <WeeklyFolderCard reviewsData={reviewsData}/>
         </section>
       </div>
     </div>

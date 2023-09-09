@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import emptty from '../../assets/image/emptyyy.gif'
 import { useNavigate } from 'react-router-dom';
 
 function ReviewListingTable({reviews , user }) {
   const navigate = useNavigate()
   const handleClick = (id) =>{
+    console.log(id);
     navigate(`/${user}/review-details/${id}`)
   }
-    console.log(reviews);
+
+  useEffect(()=>{
+    
+  })
+    console.log("hwt",reviews);
   return (
     <>{ reviews.length !== 0 ? 
         <div className="relative overflow-x-auto shadow-md rounded-2xl">
@@ -40,7 +45,7 @@ function ReviewListingTable({reviews , user }) {
             </tr>
           </thead>
           <tbody>
-            {reviews.map((obj, index) => {
+            {reviews?.map((obj, index) => {
               return (
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <td class="w-4 p-4">{index + 1}</td>
@@ -50,18 +55,18 @@ function ReviewListingTable({reviews , user }) {
                   >
                     {obj?.student?.name}
                   </th>
-                  <td >{user === 'reviewer' ?  obj?.advisor?.name : obj?.reviewer?.name  }</td>
+                  <td >{user === 'reviewer' ?  obj?.reviews?.advisor?.name : obj?.reviews?.reviewer?.name  }</td>
                   <td >{obj?.student?.domain?.name}</td>
-                  <td >{obj?.student?.week}</td>
+                  <td >{obj?.week}</td>
 
                   <td>
-
+                    {obj?.status}
                   </td>
                   <td>
                     <a
                       href="#"
                       class="font-medium text-orange-300 dark:text-orange-400 hover:underline"
-                      onClick={()=>handleClick(obj?.student?._id)}
+                      onClick={()=>handleClick(obj?._id)}
                       >review details
                       
                     </a>

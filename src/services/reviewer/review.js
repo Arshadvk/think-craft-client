@@ -6,13 +6,25 @@ export const fetchReviewList = async ()=>{
 }
 
 export const fetchOneReviewDetails = async (id)=>{
-    const res = reviewerAxios.get(`/review-list?id=${id}`)
+    const res = reviewerAxios.get(`/review-list?id=${id}` ,)
     const data = (await res).data
     return data 
 }
 
-export const updateReviewMark = async (mark , id) =>{
-    const res = reviewerAxios.put(`/update-review-details/${id}`,{mark})
-    const data = (await res).data
+export const updateReviewMark = async (mark , student , week  , weekStatus  ) =>{
+    const res = await reviewerAxios.put(`/update-review-details`, {mark , student , week , weekStatus })
+    const data =  res.data
+    return data 
+}
+
+export const updatePendingTopic = async (pendingTopic , student , week ) =>{
+    const res = await reviewerAxios.put('/update-review-details' , {pendingTopic , student , week})
+    const data = res.data
+    return data
+}
+
+export const fetchSlotDetails = async () =>{
+    const res = await reviewerAxios.get('/slot-list' )
+    const data = res.data 
     return data 
 }

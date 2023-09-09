@@ -18,7 +18,7 @@ function SelectStudent({selectedStudent , student , handleStudentSelectChange}) 
         >
           <option value="">Select a student</option>
           {student.map((obj) => (
-            <option key={obj._id} value={obj?.student?._id}>
+            <option key={obj._id} value={obj?._id}>
               {obj?.student?.name}
             </option>
           ))}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
 import { useDispatch } from "react-redux";
@@ -21,7 +21,7 @@ function Navbar({ type }) {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  
+ 
   const handleLogout = () => {
     Swal.fire({
       title: 'Logout',

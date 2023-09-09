@@ -7,21 +7,23 @@ import { fetchManifestPerReview } from '../../services/student/manifest'
 function ReviewDetailPage() {
     const {id} = useParams()
     const [student , setStudent] = useState([])
-    const [review , setReview] = useState('')
+    const [review , setReview ] = useState([])
+    const [mark , setMark ] = useState({})
     useEffect(()=>{
       fetchManifestPerReviewHelper()
     },[])
     const fetchManifestPerReviewHelper = async () =>{
       const data = await fetchManifestPerReview(id)
+      setReview(data)
       setStudent(data?.student)
-      setReview(data?.reviews[0])
+      setMark(data?.mark)
     }
   return (
     <div>
       <Navbar type={''}/>
       <div className="lg:ml-64">
         <section className="bg-gray-50 min-h-screen  items-center justify-center p-4 pt-20">
-            <ReviewDetailsTable  student={student}  user={'student'} review={review} />
+            <ReviewDetailsTable  student={student}  user={'student'} review={review} mark={mark} />
         </section>
       </div>
     

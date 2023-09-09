@@ -1,13 +1,39 @@
 import React, { useState } from "react";
 import taskDetails from "../../../assets/image/taskCo.jpg";
-function TaskDetails({ user }) {
+import { updateReviewDetails } from "../../../services/advisor/reviews";
+import { toast } from "react-toastify";
+function TaskDetails({ user , week , student , id  ,}) {
   const [showInput, setShowInput] = useState(false);
   const [seminar, setSeminar] = useState("Not added");
   const [progress, setProgress] = useState("Not added");
+  const [status , setStatus] = useState(true)
   const [typing, setTyping] = useState("Not added");
   const handleClick = () => {
     setShowInput(showInput ? false : true);
   };
+  const handleSave = () =>{
+    
+    console.log(seminar , progress , typing , "studenfdd" , student);
+    const value = {
+      seminar : seminar , 
+      progress : progress ,
+      typing : typing , 
+      weekStatus : status ,
+      week : week ,
+      student : student
+    }
+    updateReviewDetailsHelper(value)
+    setShowInput(showInput ? false : true);
+
+  }
+  const updateReviewDetailsHelper = async (value) =>{
+    try {
+      const data = await updateReviewDetails(id ,value )
+      toast.success('task status updated successfully.');
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
   return (
     <div className="shadow p-3 rounded ">
       <div className="flex">
@@ -16,9 +42,9 @@ function TaskDetails({ user }) {
             Task Details
           </h1>
         </div>
-        <div className={user === "advisor" ? "" : "hidden"}>
-          <button onClick={handleClick}>
-            {!showInput ? (
+        <div className={ user === "advisor" ? "" : "hidden"}>
+          <button onClick={ showInput ? handleSave : handleClick}>
+            {!showInput   ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -61,12 +87,15 @@ function TaskDetails({ user }) {
           <h1>
             Seminar Video :{" "}
             {showInput && (
-              <input
-                className="rounded  w-24"
-                type="text"
-                value={seminar}
-                onChange={(e) => setSeminar(e.target.value)}
-              />
+              <select
+              className="rounded w-24"
+              value={seminar}
+              onChange={(e) => setSeminar(e.target.value)}
+            >
+              <option value="Not added">Not added</option>
+              <option value="completed">Completed</option>
+            </select>
+            
             )}{" "}
             <span
               className={
@@ -83,12 +112,14 @@ function TaskDetails({ user }) {
           <h1>
             Progress Video :{" "}
             {showInput && (
-              <input
-                className="rounded  w-24"
-                type="text"
-                value={progress}
-                onChange={(e) => setProgress(e.target.value)}
-              />
+               <select
+               className="rounded w-24"
+               value={progress}
+               onChange={(e) => setProgress(e.target.value)}
+             >
+               <option value="Not added">Not added</option>
+               <option value="completed">Completed</option>
+             </select>
             )}{" "}
             <span
               className={
@@ -104,12 +135,14 @@ function TaskDetails({ user }) {
           <h1>
             Typing :{" "}
             {showInput && (
-              <input
-                className="rounded  w-24"
-                type="text"
-                value={typing}
-                onChange={(e) => setTyping(e.target.value)}
-              />
+              <select
+              className="rounded w-24"
+              value={typing}
+              onChange={(e) => setTyping(e.target.value)}
+            >
+              <option value="Not added">Not added</option>
+              <option value="completed">Completed</option>
+            </select>
             )}{" "}
             <span
               className={
@@ -120,6 +153,29 @@ function TaskDetails({ user }) {
             >
               {" "}
               {!showInput && typing}
+            </span>
+          </h1>
+          <h1 className={user === 'advisor'  ?'' : 'hidden' }>
+             next  week {" "}
+            {showInput && (
+              <select
+              className="rounded w-24"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <option value='failed'>failed</option>
+              <option value='pass'>pass</option>
+            </select>
+            )}{" "}
+            <span
+              className={
+                status === false
+                  ? "text-red-600 text-sm font-semibold"
+                  : "text-green-600 text-sm font-semibold"
+              }
+            >
+              {" "}
+              {!showInput && status}
             </span>
           </h1>
         </div>

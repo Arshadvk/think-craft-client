@@ -1,33 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { updateReviewMark } from "../../../services/reviewer/review";
-import mark from '../../../assets/image/mark.jpg'
-function ReviewMarkBox({ user, id }) {
+import markpic from '../../../assets/image/mark.jpg'
+import { toast } from "react-toastify";
+function ReviewMarkBox({ user, student , week , review  }) {
+  
+  
   const [showInput, setShowInput] = useState(false);
-  const [code, setCode] = useState(0);
-  const [theory, setTheory] = useState(0);
+  const [code, setCode] = useState(review?.mark?.code);
+  const [theory, setTheory] = useState(review?.mark?.theory);
+  const [weekStatus , setWeekStatus] = useState('')
+  useEffect(()=>{
+    setCode(review?.mark?.code)
+    setTheory(review?.mark?.theory)
+  },[review])
+  console.log("hellooooooooooooooooooooooooo" , code , theory)
+  
   const handleClick = () => {
     setShowInput(showInput ? false : true);
   };
+
   const handleSave = () => {
     const updateReviewMarkHelper = async () => {
-      const data = await updateReviewMark({ code, theory }, id);
+      try {
+        const data = await updateReviewMark({ code, theory }, student , week , weekStatus);
+        if (data ){
+          toast.success('mark updated successfully.');
+        }
+      } catch (error) {
+        toast.error(error?.response?.data?.message);
+      }
     };
     updateReviewMarkHelper();
     setShowInput(showInput ? false : true);
   };
   return (
     <div className="shadow p-3 rounded gap-3">
-      <form action="">
+    
         <div className="flex">
           <div className="w-11/12">
             <h1 className="text-sm font-bold bg-black p-1 rounded w-4/12 text-white text-center">
               Review Details
             </h1>
           </div>
-          <div className={user === "reviewer" ? "" : "hidden"}>
+          <div className={user !== "reviewer" ? "hidden" : review === 'conducted' ? "hidden" : ""}>
             <button
               onClick={showInput ? handleSave : handleClick}
-              type={showInput ? "submit" : "button"}
+             
             >
               {!showInput ? (
                 <svg
@@ -61,7 +79,7 @@ function ReviewMarkBox({ user, id }) {
         </div>
         <div className="flex">
           <div className="w-1/4 mt-1">
-          <img src={mark} alt="" className="rounded-md shadow-xl" srcset="" />
+          <img src={markpic} alt="" className="rounded-md shadow-xl" srcset="" />
           </div>
           <div className="p-4">
             <h1 className="font-semibold"> mark</h1>
@@ -70,7 +88,7 @@ function ReviewMarkBox({ user, id }) {
               {showInput && (
                 <input
                   className="rounded ml-3 w-10"
-                  type="text"
+                  type="number"
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                 />
@@ -82,15 +100,30 @@ function ReviewMarkBox({ user, id }) {
               {showInput && (
                 <input
                   className="rounded ml-3 w-10"
-                  type="text"
+                  type="number"
                   value={theory}
                   onChange={(e) => setTheory(e.target.value)}
                 />
               )}
             </div>
+            <div className="flex m-1">
+              <h1>week status : {!showInput && weekStatus} </h1>
+              {showInput && (
+    <select
+      className="rounded ml-1"
+      value={weekStatus}
+      onChange={(e) => setWeekStatus(e.target.value)} // You will need to define the state and setter for weekStatus
+    >
+      <option value="Task Completed" className="text-green-600 font-semibold text-sm ">Task Completed</option>
+      <option value="Task Needs Improvement" className="text-yellow-600 font-semibold text-sm ">Task Needs Improvement</option>
+      <option value="Task Critical" className="text-orange-600 font-semibold text-sm ">Task Critical</option>
+      <option value="Week Repeat" className="text-blue-600 font-semibold text-sm ">Week Repeat</option>
+      
+    </select>
+  )}
+            </div>
           </div>
         </div>
-      </form>
     </div>
   );
 }

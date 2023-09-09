@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, {  } from "react";
 import task from "../../assets/image/task.jpg";
-import studentAxios from "../../axios/studentAxios";
-import { useErrorHandler } from "../../hooks/ErrorHandler";
 import { useNavigate } from "react-router-dom";
 
-function TaskBox({userData}) {
+function TaskBox() {
   const navigate = useNavigate();
   
-  const { studentAuthenticationHandler } = useErrorHandler();
+
  
 
   return (
     <>
-      <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-lg w-8/12 p-2 ">
+      <div className="bg-[FFFFFF]-100-100 bg-opacity-50 flex rounded-lg shadow-lg w-8/12 p-2 ">
         <div className=" w-2/2 lg:w-2/12  rounded-2xl overflow-hidden shadow-2xl ">
           <img className="rounded-full  mb-1" src={task} alt="" />
           <div className="items-end  relative"></div>

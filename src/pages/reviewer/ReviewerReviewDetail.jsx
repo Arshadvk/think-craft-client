@@ -11,8 +11,7 @@ function ReviewerReviewDetail() {
   useEffect(()=>{
     const fetchReviewDetail = async (id) =>{
       const data = await fetchOneReviewDetails(id)
-      setReview(data[0]?.reviews[0])
-      console.log(data);
+      setReview(data[0])
       setStudent(data[0]?.student)
     } 
     fetchReviewDetail(id)

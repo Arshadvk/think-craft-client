@@ -16,7 +16,6 @@ function App() {
         <Route path='/reviewer/*' element={<ReviewerRoute/>} />
         <Route path='/advisor/*' element={<AdvisorRoute/>} />
         <Route path='/*' element={<StudentRoute/>} />
-
       </Routes>
      </BrowserRouter>
   

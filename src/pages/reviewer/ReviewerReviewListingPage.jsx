@@ -11,7 +11,7 @@ function ReviewerReviewListingPage() {
     console.log('hello');
     const fetchReviewsListHelper = async ( )=>{
       const data = await fetchReviewList()
-      console.log("datta" , data);
+      console.log("datta" , data[0]);
       setReviews(data)
     }
     fetchReviewsListHelper()

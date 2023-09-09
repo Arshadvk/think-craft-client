@@ -12,20 +12,19 @@ function AdvisorScheduleReviews() {
     reviewList();
   }, []);
   const reviewList = async () => {
-    const res = await reviewslistForbooking("booking");
+    const res = await reviewslistForbooking("booking" , );
     console.log(res);
     setReviewData(res);
   };
   const fetchReviewerList = async () => {
     const res = await reviewerList()
-    
     setReviewer(res)
   };
   return (
     <div>
       <Navbar type={"advisor"} />
       <div className="lg:ml-64">
-        <section className="bg-gray-50 min-h-screen items-center justify-center pt-24">
+        <section className="bg-gray-50 min-h-screen items-center justify-center pt-20">
           <div className="flex shadow rounded">
             <ReviewsToBeSchedule reviews={review} />
             <BookSlotBox reviewers={reviewer } student={review}/>

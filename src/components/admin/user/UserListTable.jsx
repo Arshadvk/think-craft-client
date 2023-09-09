@@ -3,25 +3,9 @@ import adminAxios from "../../../axios/adminAxios";
 import Swal from "sweetalert2";
 import { useErrorHandler } from "../../../hooks/ErrorHandler";
 
-function UserListTable({type}) {
-  console.log(localStorage.getItem("persist:Admin"));
+function UserListTable({type , userData  , setUserDate }) {
   const {adminAutheticationHandler } = useErrorHandler()
   const user = type
-  console.log(user+1);
-  const [userData, setUserDate] = useState([]);
-  console.log(userData);
-  useEffect(() => {
-    adminAxios
-      .get(`/all-${user}`)
-      .then((response) => {
-        console.log(response.data);
-        setUserDate(response.data);
-      })
-      .catch((error) => {
-        adminAutheticationHandler(error)
-        console.log(error);
-      });
-  }, [user]);
 
   const blockUser = (id, action) => {
     Swal.fire({
@@ -89,7 +73,7 @@ function UserListTable({type}) {
               <th>
                verifyied
               </th>
-              <th scope="col" class={user!== 'advisor' ?  "px-6 py-3 " : "hidden"}>
+              <th scope="col" class={user === 'student' ?  "px-6 py-3 " : "hidden"}>
                 Domain
               </th>
 
@@ -116,13 +100,7 @@ function UserListTable({type}) {
                   <td class="px-6 py-4">{obj.email}</td>
                   <td class={obj?.isProfileVerified === true ? "px-6 py-4 text-green-600 font-semibold" : "px-6 py-4 font-semibold text-red-600" }>{obj?.isProfileVerified === true ? "verified" : "not verified"}</td>
                   <td class={user === 'student' ? "px-6 py-4" : 'hidden'}>{obj?.domain?.name}</td>
-                  <td class={user=== 'reviewer'? "px-6 py-4" : "hidden"}> 
-                  {user=== 'reviewer' && obj?.domain?.map((domain)=>{
-                    return(
-                      domain?.name +" "
-                    )
-                  }) }
-                      </td>
+                  
                   <td class={user=== 'student'?  "px-6 py-4" : 'hidden'}>{obj?.week}</td>
 
                   <td class={obj?.isProfileVerified === true ? "flex items-center px-6 py-4 space-x-3" : "hidden"}>
