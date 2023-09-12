@@ -12,17 +12,17 @@ function PendingTopicBox({ pendingTask }) {
           />
           <div className="items-end  relative"></div>
         </div>
-        
-          <div className="p-2 w-1/4">
-            <h1 className="text-base font-semibold bg-black rounded-xl text-white px-2 py-1 text-center w-36">
-              Pending Tasks
-            </h1>
-            {pendingTask.length === 0 ? (<h1 className="ml-3 text-sm font-medium">
-             no pendingTask
-            </h1>) : pendingTask?.map(()=>{
 
-            })}
-          </div>     
+        <div className="p-2 w-1/4">
+          <h1 className="text-base font-semibold bg-black rounded-xl text-white px-2 py-1 text-center w-36">
+            Pending Tasks
+          </h1>
+          {pendingTask.length === 0 ? (
+            <h1 className="ml-3 text-sm font-medium">no pendingTask</h1>
+          ) : (
+            pendingTask?.map(() => {})
+          )}
+        </div>
       </div>
     </div>
   );

@@ -8,11 +8,9 @@ import SetProfile from '../components/common/profile/SetProfile';
 import Login from '../components/common/login/Login';
 import Task from '../pages/student/Task';
 import Manifest from '../pages/student/Manifest';
-import MessagePage from '../components/common/message/MessagePage';
 import ReviewDetailPage from '../pages/student/ReviewDetailPage';
 import VideoCall from '../pages/student/VideoCall';
-import LobbyScreen from '../components/video-call/Lobby';
-import RoomPage from '../components/video-call/Room';
+
 
 
 function StudentRoute() {
@@ -31,7 +29,7 @@ function StudentRoute() {
         <Route exact path='/manifest' element={IsAuth.Token ?  <Manifest /> : <Login type={'student'}/>} />
         <Route exact path='/review-details/:id' element={IsAuth.Token ?  <ReviewDetailPage /> : <Login type={'student'}/>} />
         <Route exact path='/call/:room' element={IsAuth.Token ?  <VideoCall /> : <Login type={'student'}/>} />
-        <Route exact path='/message' element={IsAuth.Token ? <MessagePage type={''} /> : <Login type={'student'} />} />
+        
         <Route exact path='/review-details/:id' element={IsAuth.Token ? <ReviewDetailPage type={''} /> : <Login type={'student'} />} />
       </Routes>
     </div>

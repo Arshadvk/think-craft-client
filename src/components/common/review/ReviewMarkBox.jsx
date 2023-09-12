@@ -2,27 +2,32 @@ import React, { useEffect, useState } from "react";
 import { updateReviewMark } from "../../../services/reviewer/review";
 import markpic from '../../../assets/image/mark.jpg'
 import { toast } from "react-toastify";
-function ReviewMarkBox({ user, student , week , review  }) {
+function ReviewMarkBox({ user, student , week , review ,id , mark }) {
   
   
   const [showInput, setShowInput] = useState(false);
-  const [code, setCode] = useState(review?.mark?.code);
-  const [theory, setTheory] = useState(review?.mark?.theory);
+  const [code, setCode] = useState("");
+  const [theory, setTheory] = useState("");
   const [weekStatus , setWeekStatus] = useState('')
   useEffect(()=>{
-    setCode(review?.mark?.code)
-    setTheory(review?.mark?.theory)
-  },[review])
-  console.log("hellooooooooooooooooooooooooo" , code , theory)
+    setCode(mark?.code)
+    setTheory(mark?.theory)
+    setWeekStatus(mark?.weekStatus)
+  },[mark])
+
   
   const handleClick = () => {
     setShowInput(showInput ? false : true);
   };
 
   const handleSave = () => {
+    const value ={
+      mark : {code , theory , weekStatus} 
+    }
+
     const updateReviewMarkHelper = async () => {
       try {
-        const data = await updateReviewMark({ code, theory }, student , week , weekStatus);
+        const data = await updateReviewMark(id , value);
         if (data ){
           toast.success('mark updated successfully.');
         }
@@ -112,7 +117,7 @@ function ReviewMarkBox({ user, student , week , review  }) {
     <select
       className="rounded ml-1"
       value={weekStatus}
-      onChange={(e) => setWeekStatus(e.target.value)} // You will need to define the state and setter for weekStatus
+      onChange={(e) => setWeekStatus(e.target.value)}
     >
       <option value="Task Completed" className="text-green-600 font-semibold text-sm ">Task Completed</option>
       <option value="Task Needs Improvement" className="text-yellow-600 font-semibold text-sm ">Task Needs Improvement</option>

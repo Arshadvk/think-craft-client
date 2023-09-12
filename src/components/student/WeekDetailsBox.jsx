@@ -1,11 +1,11 @@
-import React from 'react';
-import moment from 'moment';
+import React from "react";
+import moment from "moment";
 
 function WeekDetailsBox({ userData, reviewData }) {
   const targetDate = moment(reviewData?.date);
   const currentDate = moment();
-  const daysLeft = targetDate.diff(currentDate, 'days');
-  const formattedDate = moment(reviewData?.date).format('ddd MMM D');
+  const daysLeft = targetDate.diff(currentDate, "days");
+  const formattedDate = moment(reviewData?.date).format("ddd MMM D");
   console.log(reviewData);
 
   return (
@@ -20,7 +20,12 @@ function WeekDetailsBox({ userData, reviewData }) {
           {formattedDate} {/* Display the formatted date */}
         </h2>
         <h2 className="font-semibold text-xs">
-          {daysLeft > 0 ? `(${daysLeft} days left)` : daysLeft === 1 ? 'Tomorrow' : 'Today' } {/* Display the countdown */}
+          {daysLeft > 0
+            ? `(${daysLeft} days left)`
+            : daysLeft === 1
+            ? "Tomorrow"
+            : "Today"}{" "}
+          {/* Display the countdown */}
         </h2>
       </div>
     </>

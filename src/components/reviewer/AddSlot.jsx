@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import reviewerAxios from "../../axios/reviewerAxios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import slot from '../../assets/image/reviewerHome.jpg'
+import slot from "../../assets/image/reviewerHome.jpg";
 function AddSlot() {
   function getCurrentDate() {
     const now = new Date();
@@ -82,7 +82,12 @@ function AddSlot() {
         <div className="bg-[FFFFFF]-100-100 flex rounded-lg shadow-xl max-w-3xl p-5">
           <div className="flex">
             <div className="lg:w-1/2 p-4 mt-8 sm:block hidden">
-                <img src={slot}  className='shadow-sm rounded-lg' alt="" srcset="" />
+              <img
+                src={slot}
+                className="shadow-sm rounded-lg"
+                alt=""
+                srcset=""
+              />
             </div>
             <div className="lg:w-1/3 lg:pl-6">
               <h1 className="font-extrabold text-3xl text-shadow text-center">

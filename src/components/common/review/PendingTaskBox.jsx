@@ -1,23 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import pendingTaskImg from '../../../assets/image/pendingtask.jpg'
 import MultipleInputFields from "./MultipleInputFields";
 import { updatePendingTopic } from "../../../services/reviewer/review";
 import { toast } from "react-toastify";
-function PendingTaskBox({ user , student , week , pendingTask }) {
+function PendingTaskBox({ user ,  pndTask , id }) {
   const [showInput, setShowInput] = useState(false);
   const [inputValues, setInputValues] = useState([""]);
+  const [pendingTask , setPendingTask]  = useState([""]);
+
+  useEffect(()=>{
+    setPendingTask(pndTask)
+    setInputValues(pndTask)
+  },[pndTask])
 
   const handleClick = () => {
     setShowInput(showInput ? false : true);
   };
   const handleSave = ()=>{
     updatePendingTopicsHelper()
+    setPendingTask(inputValues)
     setShowInput(showInput ? false : true);
   }
  
   const updatePendingTopicsHelper = async () =>{
     try {
-      const data = updatePendingTopic(inputValues ,student , week )
+      const data = updatePendingTopic( id ,inputValues  )
       if (data) {
         toast.success('pending task updated.');
 
@@ -73,19 +80,17 @@ function PendingTaskBox({ user , student , week , pendingTask }) {
         <div className="w-1/3 p-3">
           <img src={pendingTaskImg} alt="" className="rounded-md shadow-xl" srcset="" />
         </div>
+        {!showInput && 
         <div className="w-1/3 p-3">
-          {pendingTask?.length !==0 ? pendingTask?.map(()=>{
-
-          }): (<div className="text-center font-semibold"> no pending task</div>) }
-        </div>
+        {pendingTask?.length !==0 ? pendingTask?.map((obj ,intex)=>{
+         return (<h1>  {intex+1 +") " +obj}</h1>)
+        }): (<div className="text-center font-semibold"> no pending task</div>) }
+      </div>}
         <div className="ml-3 mt-3">
          {showInput && 
-        <MultipleInputFields setInputValues={setInputValues} inputValues={inputValues}/>
+        <MultipleInputFields setInputValues={setInputValues} inputValues={inputValues} />
         } 
-        {!showInput && 
-        <div>
-         
-          </div>}
+        
         </div>
       </div>
     </div>

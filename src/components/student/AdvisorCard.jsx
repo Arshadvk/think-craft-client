@@ -3,21 +3,22 @@ import advisorImage from "../../assets/image/advisorProfile.jpg";
 import { useSocket } from "../../context/SocketProvider";
 import { useNavigate } from "react-router-dom";
 
-function AdvisorCard({ reviewData , student }) {
+function AdvisorCard({ reviewData, student }) {
   const socket = useSocket();
   const navigate = useNavigate();
-  const handleJoinReview = useCallback((email , room)=>{
-    socket.emit("room:join" , {email  , room })
-  
-  },[socket])
-  
+  const handleJoinReview = useCallback(
+    (email, room) => {
+      socket.emit("room:join", { email, room });
+    },
+    [socket]
+  );
+
   const handleJoinRoom = useCallback((data) => {
     const { email, room } = data;
     console.log("data from backend", email, room);
-    navigate(`/call/${room}`)
+    navigate(`/call/${room}`);
   });
 
-  
   useEffect(() => {
     socket.on("room:join", handleJoinRoom);
     return () => {
@@ -34,9 +35,10 @@ function AdvisorCard({ reviewData , student }) {
         <div className="sm:w-3/4 px-3 flex items-center ">
           <h1 className="w-full font-semibold ">{reviewData?.advisor?.name}</h1>
           <div className="justify-end  mr-16 mt-2 w-full">
-            <button 
-            onClick={()=>handleJoinReview(student?.email , reviewData?._id)}
-            className="bg-black text-white rounded-xl px-5 py-2">
+            <button
+              onClick={() => handleJoinReview(student?.email, reviewData?._id)}
+              className="bg-black text-white rounded-xl px-5 py-2"
+            >
               Join into review
             </button>
           </div>

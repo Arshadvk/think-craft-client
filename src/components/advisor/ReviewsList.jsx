@@ -15,7 +15,6 @@ function ReviewsList() {
   useEffect(() => {
     const reviewList = async () => {
       const res = await reviewslist();
-      console.log("eeeeeeee",res);
       setReviewData(res);
     };
     reviewList();
@@ -46,7 +45,7 @@ function ReviewsList() {
                   <button
                     onClick={()=>handleBookSlot()}
                     className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >{obj?.status === "not-scheduled"  ? "Book slot" : "Start Review"}
+                  >{obj?.status === "not-scheduled"  ? "Book slot" : "Update Review"}
                     
                   </button>
                   <button

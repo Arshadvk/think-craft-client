@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import taskDetails from "../../../assets/image/taskCo.jpg";
 import { updateReviewDetails } from "../../../services/advisor/reviews";
 import { toast } from "react-toastify";
-function TaskDetails({ user , week , student , id  ,}) {
+function TaskDetails({ user , week , student , id  ,taskStatus}) {
   const [showInput, setShowInput] = useState(false);
   const [seminar, setSeminar] = useState("Not added");
   const [progress, setProgress] = useState("Not added");
   const [status , setStatus] = useState(true)
   const [typing, setTyping] = useState("Not added");
+
+  useEffect(()=>{
+    setSeminar(taskStatus?.seminar)
+    setProgress(taskStatus?.progress)
+    setTyping(taskStatus?.typing)
+  },[taskStatus])
   const handleClick = () => {
     setShowInput(showInput ? false : true);
   };

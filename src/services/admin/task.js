@@ -19,3 +19,9 @@ export const fetchTaskDetails = async (id) =>{
    console.log(res);
    return data 
 }
+
+export const editWeeklyTask = async (id , value)=>{
+   const res = await adminAxios.put('edit-task', {id , value})
+   const data = res.data
+   return data 
+}

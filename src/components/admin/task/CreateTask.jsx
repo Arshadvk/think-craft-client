@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import adminAxios from '../../../axios/adminAxios';
+import { toast } from "react-toastify";
 
 function CreateTask() {
   const [domain , setDomain ] = useState([])
@@ -45,8 +46,10 @@ function CreateTask() {
       console.log(values);
         adminAxios.post('/add-task' , values).then((response)=>{
             console.log("Task added successfully");
+            toast.success('Task added successfully"');
             resetForm()
         }).catch((error)=>{
+          toast.error("Error adding task" ,);
             console.error("Error adding task" , error);
         }).finally(()=>{
             setSubmitting(false)

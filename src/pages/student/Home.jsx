@@ -4,12 +4,11 @@ import TaskBox from '../../components/student/TaskBox'
 import AdvisorCard from '../../components/student/AdvisorCard'
 import studentAxios from "../../axios/studentAxios";
 import WeekDetailsBox from '../../components/student/WeekDetailsBox';
-import PendingTopicBox from '../../components/student/PendingTopicBox';
 import home from '../../assets/image/student/home.gif';
 function Home() { 
   const [userData, setUserData] = useState([]);
   const [reviewData , setReviewData] = useState('')
-  const [pendingTask , setPendingTask] = useState([]);
+ 
   useEffect(() => {
     async function fetchUser() {
       try {
@@ -17,7 +16,7 @@ function Home() {
         console.log('profile dataa', response.data);
         setUserData(response.data?.student)
         setReviewData(response.data)
-        setPendingTask(response.data.pendingTask)
+        
       } catch (error) {
         console.log(error);
       }
@@ -44,7 +43,7 @@ function Home() {
           <WeekDetailsBox userData={userData} reviewData={reviewData}/>
           </div>
           <AdvisorCard reviewData={reviewData} student={userData}/>
-          <PendingTopicBox pendingTask={pendingTask.length = 0 ? [] : pendingTask }  />
+
       </div> 
         </section>
       </div>

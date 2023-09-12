@@ -27,6 +27,7 @@ function StudentDetails({ student, user, review }) {
         <h1>review date : {formattedDate}</h1>
         <h1>scheduled date : {review?.day}</h1>
         <h1>time : {review?.time ? review?.time : "not scheduled"  }</h1>
+       
       </div>
       </div>
     </div>

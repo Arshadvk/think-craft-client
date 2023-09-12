@@ -11,14 +11,14 @@ export const fetchOneReviewDetails = async (id)=>{
     return data 
 }
 
-export const updateReviewMark = async (mark , student , week  , weekStatus  ) =>{
-    const res = await reviewerAxios.put(`/update-review-details`, {mark , student , week , weekStatus })
+export const updateReviewMark = async (id , value ) =>{
+    const res = await reviewerAxios.put(`/update-review-details`, {id , value })
     const data =  res.data
     return data 
 }
 
-export const updatePendingTopic = async (pendingTopic , student , week ) =>{
-    const res = await reviewerAxios.put('/update-review-details' , {pendingTopic , student , week})
+export const updatePendingTopic = async (id ,pendingTopic) =>{
+    const res = await reviewerAxios.put('/update-review-details' , {id , pendingTopic })
     const data = res.data
     return data
 }

@@ -1,12 +1,9 @@
-import React, {  } from "react";
+import React from "react";
 import task from "../../assets/image/task.jpg";
 import { useNavigate } from "react-router-dom";
 
 function TaskBox() {
   const navigate = useNavigate();
-  
-
- 
 
   return (
     <>
@@ -29,7 +26,7 @@ function TaskBox() {
           </div>
         </div>
       </div>
-  </>
+    </>
   );
 }
 
