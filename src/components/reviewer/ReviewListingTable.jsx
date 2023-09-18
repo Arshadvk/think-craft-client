@@ -52,8 +52,8 @@ function ReviewListingTable({ reviews, user }) {
                     </th>
                     <td>
                       {user === "reviewer"
-                        ? obj?.reviews?.advisor?.name
-                        : obj?.reviews?.reviewer?.name}
+                        ? obj?.advisor?.name
+                        : !obj?.reviewer?.name  ? "not fixed"  : obj?.reviewer?.name }
                     </td>
                     <td>{obj?.student?.domain?.name}</td>
                     <td>{obj?.week}</td>

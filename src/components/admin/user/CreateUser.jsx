@@ -80,7 +80,7 @@ function CreateUser() {
 
                   <button
                     type="submit"
-                    className="py-2 font-bold text-slate-100 rounded-xl border bg-[#f18b31] hover:bg-[#fc7600] bg-[#ff7700] focus:outline-none focus:ring focus:ring-[#F4B680] hover:drop-shadow-xl"
+                    className="py-2 font-bold text-slate-100 rounded-xl border bg-[#2a4746] hover:bg-[#122b2b]  focus:outline-none focus:ring focus:ring-[#4be0e0] hover:drop-shadow-xl"
                     disabled={isSubmitting}
                   >
                     ADD USER

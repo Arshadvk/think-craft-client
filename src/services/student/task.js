@@ -12,8 +12,3 @@ export const loadTasks = async () =>{
     }
 }
 
-export const addTask = async (formData) =>{
-    const res = await studentAxios.post('/weekly-task' , {formData})
-    const data = res.data 
-    return data 
-}

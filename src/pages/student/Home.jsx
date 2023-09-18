@@ -1,54 +1,61 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../../components/common/nav/Navbar'
-import TaskBox from '../../components/student/TaskBox'
-import AdvisorCard from '../../components/student/AdvisorCard'
+import React, { useEffect, useState } from "react";
+import Navbar from "../../components/common/nav/Navbar";
+import TaskBox from "../../components/student/TaskBox";
+import AdvisorCard from "../../components/student/AdvisorCard";
 import studentAxios from "../../axios/studentAxios";
-import WeekDetailsBox from '../../components/student/WeekDetailsBox';
-import home from '../../assets/image/student/home.gif';
-function Home() { 
+import WeekDetailsBox from "../../components/student/WeekDetailsBox";
+import home from "../../assets/image/student/na_feb_36.jpg";
+import Calendar from "../../components/student/Calender";
+import { useErrorHandler } from "../../hooks/ErrorHandler";
+
+function Home() {
   const [userData, setUserData] = useState([]);
-  const [reviewData , setReviewData] = useState('')
- 
+  const [reviewData, setReviewData] = useState("");
+  const { studentAuthenticationHandler } = useErrorHandler();
   useEffect(() => {
     async function fetchUser() {
       try {
         const response = await studentAxios.get("/home");
-        console.log('profile dataa', response.data);
-        setUserData(response.data?.student)
-        setReviewData(response.data)
-        
+        setUserData(response.data?.student);
+        setReviewData(response.data);
       } catch (error) {
+        studentAuthenticationHandler(error.response);
         console.log(error);
       }
     }
     fetchUser();
   }, []);
 
-  
   return (
     <div>
       <Navbar type={""} />
       <div className="lg:ml-64">
-        <section className="bg-gray-50 min-h-screen pt-14 w-full">
+        <section className="min-h-screen pt-14 w-full">
           <div
-      className="bg-white mx-2 h-screen rounded-3xl shadow-md"
-      style={{
-        backgroundImage: `url(${home})`,
-        backgroundSize: 'cover', // This will make the background image cover the entire div
-        backgroundRepeat: 'no-repeat', // This will prevent the background image from repeating
-    }}
-    >
-        <div className="flex items-center justify-center mt-4">
-          <TaskBox userData={userData}/>
-          <WeekDetailsBox userData={userData} reviewData={reviewData}/>
+            className="bg-white  h-52 lg:h-96 "
+            style={{
+              backgroundImage: `url(${home})`,
+              backgroundSize: "cover", // This will make the background image cover the entire div
+              backgroundRepeat: "no-repeat", // This will prevent the background image from repeating
+            }}
+          >
+            <div className="flex justify-end mt-2">
+              <div>
+                <WeekDetailsBox userData={userData} reviewData={reviewData} />
+                <Calendar />
+              </div>
+            </div>
           </div>
-          <AdvisorCard reviewData={reviewData} student={userData}/>
-
-      </div> 
+          <br />
+          <hr />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <TaskBox userData={userData} />
+            <AdvisorCard reviewData={reviewData} student={userData} />
+          </div>
         </section>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

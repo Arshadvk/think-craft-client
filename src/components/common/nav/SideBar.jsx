@@ -13,12 +13,12 @@ function SideBar({ data, type }) {
   return (
     <aside
       id="logo-sidebar"
-      class={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-shadow border-gray-200  dark:bg-[#4e4944] dark:border-[#f18b31]} ${
+      class={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-shadow border-gray-200  dark:bg-gray-900 dark:border-[#f18b31]} ${
         isSidebarOpen ? "block" : "hidden"
       } lg:block`}
       aria-label="Sidebar"
     >
-      <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-[#4e4944]">
+      <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-900">
         <ul class="space-y-2 font-medium">
           <li>
             <a

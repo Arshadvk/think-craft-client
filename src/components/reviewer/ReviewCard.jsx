@@ -36,7 +36,7 @@ function ReviewCard({ reviewData }) {
   }, [socket]);
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {reviewData?.map((obj) => {
+      {reviewData.length !==0 && reviewData?.map((obj) => {
         return (
           <div className="col-span-1 pt-4 m-3 bg-white border mx-2 border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700 shadow-2xl">
             <div className="flex flex-col items-center pb-10">

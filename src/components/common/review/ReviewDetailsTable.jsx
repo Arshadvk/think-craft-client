@@ -12,7 +12,7 @@ function ReviewDetailsTable({student , user , id  , review }) {
       <StudentDetails student={student} user={user} review={ review }/>
       <ReviewMarkBox user={user} student={student?._id} week={student?.week} mark={review?.mark}  review={review?.status} id={id}/>
       <PendingTaskBox user={user}  id={id} pndTask={review?.pendingTask}/>
-      <TaskDetails user={user} review={review} id={id} taskStatus={review?.taskStatus} status={review?.status}/>
+      <TaskDetails user={user} review={review} id={id} student={student?._id} week={student?.week} taskStatus={review?.taskStatus} status={review?.status}/>
     </div>
     <TaskUploadedDetail/>
     </>

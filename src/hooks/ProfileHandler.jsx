@@ -3,6 +3,7 @@ import advisorAxios from "../axios/advisorAxios";
 import studentAxios from "../axios/studentAxios";
 import reviewerAxios from "../axios/reviewerAxios";
 import { useErrorHandler } from "./ErrorHandler";
+import { toast } from "react-toastify";
 
 export function useProfileDetails({ user, setUserData }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,15 +19,16 @@ export function useProfileDetails({ user, setUserData }) {
 
       try {
         let response;
-        console.log("hello");
-        console.log(user);
         if (user === "student") {
           response = await studentAxios.get("/profile");
+        
         } else if (user === "advisor") {
           response = await advisorAxios.get("/profile");
+        
         } else if (user === "reviewer") {
           console.log("userrrrr");
           response = await reviewerAxios.get("/profile");
+         
         }
 
         setUserData(response.data);
@@ -66,10 +68,37 @@ export function useEditProfile() {
       let response;
       if (user === "student") {
         response = await studentAxios.put("/edit-profile", { userData });
+        toast.success('Profile update successfully.');
       } else if (user === "reviewer") {
         response = await reviewerAxios.put("/edit-profile", { userData });
+        toast.success('Profile update successfully.');
       } else if (user === "advisor") {
-        response = await advisorAxios.put("/edit-profile", { userData });
+        response = await advisorAxios.put("/edit-profile", { userData }); 
+         toast.success('Profile update successfully.');
+      }
+      console.log(response);
+    } catch (error) {
+      if (user === "student") {
+        studentAuthenticationHandler(error);
+      } else if (user === "advisor") {
+        advisorAutheticationHandler(error);
+      } else if (user === "reviewer") {
+        reviewerAutheticationHandler(error);
+      }
+    }
+  }
+  async function editPassword(user, value) {
+    try {
+      let response;
+      if (user === "student") {
+        response = await studentAxios.put("/update-password", { value });
+        toast.success('password update successfully.');
+      } else if (user === "reviewer") {
+        response = await reviewerAxios.put("/update-password", { value });
+        toast.success('password update successfully.');
+      } else if (user === "advisor") {
+        response = await advisorAxios.put("/update-password", { value }); 
+         toast.success('password update successfully.');
       }
       console.log(response);
     } catch (error) {
@@ -83,5 +112,6 @@ export function useEditProfile() {
     }
   }
 
-  return { updateProfile };
+  return { updateProfile , editPassword};
 }
+

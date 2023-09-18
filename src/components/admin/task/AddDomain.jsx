@@ -58,7 +58,7 @@ function AddDomain() {
               </div>
               <button
                 type="submit"
-                className="mt-2 p-2 font-bold text-slate-100 rounded-xl border  hover:bg-[#fc7600] bg-[#ff7700] focus:outline-none focus:ring focus:ring-[#F4B680] hover:drop-shadow-xl"
+                className="py-2 font-bold text-slate-100 rounded-xl border bg-[#2a4746] hover:bg-[#122b2b]  focus:outline-none focus:ring focus:ring-[#4be0e0] hover:drop-shadow-xl"
                 disabled={formik.isSubmitting}
               >
                 {formik.isSubmitting ? "Adding..." : "ADD DOMAIN"}

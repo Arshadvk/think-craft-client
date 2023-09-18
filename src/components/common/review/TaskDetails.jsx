@@ -1,45 +1,63 @@
 import React, { useEffect, useState } from "react";
 import taskDetails from "../../../assets/image/taskCo.jpg";
-import { updateReviewDetails } from "../../../services/advisor/reviews";
+import {
+  createNewReview,
+  updateReviewDetails,
+} from "../../../services/advisor/reviews";
 import { toast } from "react-toastify";
-function TaskDetails({ user , week , student , id  ,taskStatus}) {
+import Swal from "sweetalert2";
+function TaskDetails({ user, week, student, id, taskStatus }) {
   const [showInput, setShowInput] = useState(false);
   const [seminar, setSeminar] = useState("Not added");
   const [progress, setProgress] = useState("Not added");
-  const [status , setStatus] = useState(true)
+  const [status, setStatus] = useState(true);
   const [typing, setTyping] = useState("Not added");
 
-  useEffect(()=>{
-    setSeminar(taskStatus?.seminar)
-    setProgress(taskStatus?.progress)
-    setTyping(taskStatus?.typing)
-  },[taskStatus])
+  useEffect(() => {
+    setSeminar(taskStatus?.seminar);
+    setProgress(taskStatus?.progress);
+    setTyping(taskStatus?.typing);
+  }, [taskStatus]);
   const handleClick = () => {
     setShowInput(showInput ? false : true);
   };
-  const handleSave = () =>{
-    
-    console.log(seminar , progress , typing , "studenfdd" , student);
+  const handleSave = () => {
+    console.log(seminar, progress, typing, "studenfdd", student);
     const value = {
-      seminar : seminar , 
-      progress : progress ,
-      typing : typing , 
-      weekStatus : status ,
-      week : week ,
-      student : student
-    }
-    updateReviewDetailsHelper(value)
+      seminar: seminar,
+      progress: progress,
+      typing: typing,
+      weekStatus: status,
+      week: week,
+      student: student,
+    };
+    updateReviewDetailsHelper(value);
     setShowInput(showInput ? false : true);
+  };
 
-  }
-  const updateReviewDetailsHelper = async (value) =>{
+  const createNewReviewHelper = async (status) => {
+    console.log(status);
     try {
-      const data = await updateReviewDetails(id ,value )
-      toast.success('task status updated successfully.');
+      const value = {
+        status: status,
+        student: student,
+        week: week,
+      };
+      console.log(value);
+      const data = await createNewReview(id, value);
+      toast.success("review status updated successfully.");
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
   }
+  const updateReviewDetailsHelper = async (value) => {
+    try {
+      const data = await updateReviewDetails(id, value);
+      toast.success("task status updated successfully.");
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
   return (
     <div className="shadow p-3 rounded ">
       <div className="flex">
@@ -48,9 +66,9 @@ function TaskDetails({ user , week , student , id  ,taskStatus}) {
             Task Details
           </h1>
         </div>
-        <div className={ user === "advisor" ? "" : "hidden"}>
-          <button onClick={ showInput ? handleSave : handleClick}>
-            {!showInput   ? (
+        <div className={user === "advisor" ? "" : "hidden"}>
+          <button onClick={showInput ? handleSave : handleClick}>
+            {!showInput ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -94,14 +112,13 @@ function TaskDetails({ user , week , student , id  ,taskStatus}) {
             Seminar Video :{" "}
             {showInput && (
               <select
-              className="rounded w-24"
-              value={seminar}
-              onChange={(e) => setSeminar(e.target.value)}
-            >
-              <option value="Not added">Not added</option>
-              <option value="completed">Completed</option>
-            </select>
-            
+                className="rounded w-24"
+                value={seminar}
+                onChange={(e) => setSeminar(e.target.value)}
+              >
+                <option value="Not added">Not added</option>
+                <option value="completed">Completed</option>
+              </select>
             )}{" "}
             <span
               className={
@@ -118,14 +135,14 @@ function TaskDetails({ user , week , student , id  ,taskStatus}) {
           <h1>
             Progress Video :{" "}
             {showInput && (
-               <select
-               className="rounded w-24"
-               value={progress}
-               onChange={(e) => setProgress(e.target.value)}
-             >
-               <option value="Not added">Not added</option>
-               <option value="completed">Completed</option>
-             </select>
+              <select
+                className="rounded w-24"
+                value={progress}
+                onChange={(e) => setProgress(e.target.value)}
+              >
+                <option value="Not added">Not added</option>
+                <option value="completed">Completed</option>
+              </select>
             )}{" "}
             <span
               className={
@@ -142,13 +159,13 @@ function TaskDetails({ user , week , student , id  ,taskStatus}) {
             Typing :{" "}
             {showInput && (
               <select
-              className="rounded w-24"
-              value={typing}
-              onChange={(e) => setTyping(e.target.value)}
-            >
-              <option value="Not added">Not added</option>
-              <option value="completed">Completed</option>
-            </select>
+                className="rounded w-24"
+                value={typing}
+                onChange={(e) => setTyping(e.target.value)}
+              >
+                <option value="Not added">Not added</option>
+                <option value="completed">Completed</option>
+              </select>
             )}{" "}
             <span
               className={
@@ -161,29 +178,52 @@ function TaskDetails({ user , week , student , id  ,taskStatus}) {
               {!showInput && typing}
             </span>
           </h1>
-          <h1 className={user === 'advisor'  ?'' : 'hidden' }>
-             next  week {" "}
-            {showInput && (
-              <select
-              className="rounded w-24"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+          <div
+            className={
+              user === "advisor" ? "text-white text-xs pt-2" : "hidden"
+            }
+          >
+            <button
+              className="bg-red-600 p-1 px-2 m-1 rounded-md"
+              onClick={() => {
+            
+                Swal.fire({
+                  icon: "question",
+                  title: "Confirmation",
+                  text: "Are you sure you want to repeat this week?",
+                  showCancelButton: true,
+                  confirmButtonText: "Confirm",
+                  cancelButtonText: "Cancel",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    createNewReviewHelper("week-repeat");
+                  }
+                });
+              }}
             >
-              <option value='failed'>failed</option>
-              <option value='pass'>pass</option>
-            </select>
-            )}{" "}
-            <span
-              className={
-                status === false
-                  ? "text-red-600 text-sm font-semibold"
-                  : "text-green-600 text-sm font-semibold"
-              }
+              week repeat
+            </button>
+            <button
+              className="bg-green-600 p-1 px-2 m-1 rounded-md"
+              onClick={() => {
+                
+                Swal.fire({
+                  icon: "question",
+                  title: "Confirmation",
+                  text: "Are you sure you want to proceed to the next week?",
+                  showCancelButton: true,
+                  confirmButtonText: "Confirm",
+                  cancelButtonText: "Cancel",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    createNewReviewHelper("next-week");
+                  }
+                });
+              }}
             >
-              {" "}
-              {!showInput && status}
-            </span>
-          </h1>
+              next week
+            </button>
+          </div>
         </div>
       </div>
     </div>

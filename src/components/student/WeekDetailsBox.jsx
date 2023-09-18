@@ -10,7 +10,7 @@ function WeekDetailsBox({ userData, reviewData }) {
 
   return (
     <>
-      <div className="bg-white rounded-lg shadow-lg sm:w-2/12 lg:w-1/12 text-center items-center mx-2 p-2 justify-center">
+      <div className="bg-white rounded-lg shadow-lg w-full flex text-center items-center p-2 justify-center">
         <h1 className="font-bold text-base lg:text-4xl ">
           {userData?.week < 10 ? `0${userData?.week}` : userData?.week}
         </h1>

@@ -20,7 +20,8 @@ export const fetchTaskDetails = async (id) =>{
    return data 
 }
 
-export const editWeeklyTask = async (id , value)=>{
+export const editWeeklyTask = async (id , value , week )=>{
+   value.week = week
    const res = await adminAxios.put('edit-task', {id , value})
    const data = res.data
    return data 

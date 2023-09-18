@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import profile from "../../../assets/image/profile student.jpg";
-import girlProfile from "../../../assets/image/girlProfile.jpg";
 import advisorProfile from "../../../assets/image/advisorProfile.jpg";
 import reviewerProfile from "../../../assets/image/reviewerProfile.jpg";
 import { useFormik } from "formik";
@@ -9,16 +8,15 @@ import {
   useEditProfile,
   useProfileDetails,
 } from "../../../hooks/ProfileHandler";
-import { fetchCountryCode } from "../../../services/axios";
-import { Save } from "@mui/icons-material";
 
 function ProfileTable({ type }) {
   const user = type;
-  const { updateProfile } = useEditProfile();
+  const { updateProfile, editPassword } = useEditProfile();
   const [userData, setUserData] = useState({});
   const [showInput, setShowInput] = useState(false);
-  const [changePassword , setChangePassword] = useState(false)
-  const [code, setCode] = useState([]);
+  const [showChangePass, setShowChangePass] = useState(false);
+  const [oldPass, setOldPass] = useState("");
+  const [newPass, setnewPass] = useState("");
 
   const dob = new Date(userData?.dob);
   const formattedDate = dob.toLocaleDateString("en-US", {
@@ -26,20 +24,19 @@ function ProfileTable({ type }) {
     month: "long",
     day: "numeric",
   });
-  const handleSaveProfile = () => {
+  const handleSaveProfile = (e) => {
+    e.preventDefault();
     updateProfile(user, userData);
     setShowInput(false);
   };
   const handleEditProfileClick = async () => {
     try {
-      const codes = await fetchCountryCode()
-      setCode(codes)
-       setShowInput(true);
+      setShowInput(true);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(code);
+
   const formik = useFormik({
     initialValues: {
       address: userData?.address,
@@ -57,6 +54,18 @@ function ProfileTable({ type }) {
       console.log(values);
     },
   });
+
+  const handleChangePassword = () => {
+    const value = {
+      oldpass: oldPass,
+      newpass: newPass,
+    };
+    editPassword(user, value);
+    setOldPass("");
+    setnewPass("");
+    setShowChangePass(false);
+  };
+
   useProfileDetails({ user, setUserData });
 
   return (
@@ -80,14 +89,44 @@ function ProfileTable({ type }) {
                 <button
                   type={showInput ? "submit" : "button"}
                   className="rounded-xl bg-teal-600 w-full p-1 px-4 mb-1 text-xs font-semibold"
-                  onClick={
-                    showInput ? handleSaveProfile : handleEditProfileClick
-                  }
+                  onClick={(e) => {
+                    showInput ? handleSaveProfile(e) : handleEditProfileClick();
+                  }}
                 >
                   <span>{showInput ? "Save" : "Edit Profile"}</span>
                 </button>
+                {showChangePass && (
+                  <div className="flex justify-between text-xs">
+                    <div>
+                      <input
+                        type="text"
+                        value={oldPass}
+                        onChange={(e) => {
+                          setOldPass(e.target.value);
+                        }}
+                        placeholder="enter your old password"
+                        className="shadow-2xl rounded-lg text-xs p-1 m-1"
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="enter your new password"
+                        value={newPass}
+                        onChange={(e) => {
+                          setnewPass(e.target.value);
+                        }}
+                        className="shadow-2xl rounded-lg text-xs p-1 m-1"
+                      />
+                    </div>
+                  </div>
+                )}
                 <button
-                  type={changePassword  ? "submit" : "button"}
+                  onClick={() => {
+                    !showChangePass
+                      ? setShowChangePass(true)
+                      : handleChangePassword();
+                  }}
                   className="rounded-xl bg-teal-600 w-full p-1 px-4 mb-1 text-xs font-semibold"
                 >
                   <span>{"change password"}</span>
@@ -113,13 +152,11 @@ function ProfileTable({ type }) {
               <hr />
               <h1 className={user === "reviewer" ? "m-2" : "hidden"}>
                 Domain:
-                {user === 'reviewer' && userData?.domain?.map((domain)=>{
-                 return(
-
-                   <b> {domain?.name}  </b>
-                 ) 
-                })}
-              <hr />
+                {user === "reviewer" &&
+                  userData?.domain?.map((domain) => {
+                    return <b> {domain?.name} </b>;
+                  })}
+                <hr />
               </h1>
               <h2 className={user === "student" ? "m-2" : "hidden"}>
                 {" "}
@@ -142,16 +179,9 @@ function ProfileTable({ type }) {
                   <b>
                     {showInput ? (
                       <div className="mt-2 flex gap-1">
-                        <select className="block p-1 mt-1 w-16 border-gray-300 rounded-md shadow-sm focus:border-teal-400 focus:ring focus:ring-teal-200 focus:ring-opacity-50">
-                        {code.length > 0 && code.map((country) => {
-                          return(
-                            <option value="">{country?.name?.common} {country?.callingCodes}</option>
-                            )
-                          })}
-                          </select>
                         <input
                           type="text"
-                          value={userData?.number} 
+                          value={userData?.number}
                           onChange={(e) =>
                             setUserData({ ...userData, number: e.target.value })
                           }

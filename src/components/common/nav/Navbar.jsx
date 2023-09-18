@@ -21,53 +21,48 @@ function Navbar({ type }) {
     setSidebarOpen(!isSidebarOpen);
   };
 
- 
   const handleLogout = () => {
     Swal.fire({
-      title: 'Logout',
-      text: 'Are you sure you want to logout?',
-      icon: 'warning',
+      title: "Logout",
+      text: "Are you sure you want to logout?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, logout!',
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, logout!",
     }).then((result) => {
       if (result.isConfirmed) {
-        if (user === "admin"){
+        if (user === "admin") {
           dispatch(AdminLogout());
-          localStorage.removeItem('admin')
-        } 
-        else if (user === "advisor"){
-          dispatch(AdvisorLogout()) 
-          localStorage.removeItem('advisor')
-        } 
-        else if (user === "reviewer"){
+          localStorage.removeItem("admin");
+        } else if (user === "advisor") {
+          dispatch(AdvisorLogout());
+          localStorage.removeItem("advisor");
+        } else if (user === "reviewer") {
           dispatch(ReviewerLogout());
-          localStorage.removeItem('reviewer')
-        } 
-        else{
+          localStorage.removeItem("reviewer");
+        } else {
           dispatch(StudentLogut());
-          localStorage.removeItem('student')
+          localStorage.removeItem("student");
+        }
 
-        } 
-  
         if (user === "") navigate("/login");
         else navigate(`/${user}/login`);
       }
     });
   };
-  
+
   return (
     <>
       <nav
-        className={`fixed top-0 z-50 w-full bg-white border-b border-gray-200 ${
+        className={`fixed top-0 z-50 w-full bg-white  border-gray-200 ${
           user === "admin"
-            ? "dark:bg-[#f18b31] dark:border-[#f18b31]"
+            ? "dark:bg-[#134140]"
             : user === "advisor"
-            ? "dark:bg-[#154a6c] dark:border-[#154a6c]"
+            ? "dark:bg-[#154a6c]"
             : user === "reviewer"
-            ? "dark:bg-gray-800 dark:border-gray-800"
-            : "dark:bg-[#ADB1BA] dark:border-[#ADB1BA]"
+            ? "dark:bg-gray-800"
+            : "dark:bg-black"
         }`}
       >
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -101,7 +96,6 @@ function Navbar({ type }) {
             </div>
             <div className="flex items-center">
               <div className="flex items-center ml-3">
-                
                 <div className={user === "admin" ? "hidden" : ""}>
                   <button
                     type="button"

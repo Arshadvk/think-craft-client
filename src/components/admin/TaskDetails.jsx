@@ -13,7 +13,7 @@ function TaskDetails({ taskData }) {
   };
   const handleSave = async () => {
     try {
-      const data = await editWeeklyTask(task?._id, task);
+      const data = await editWeeklyTask(task?._id, task , taskData?.week );
       toast.success("edit task successfully.");
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -28,7 +28,7 @@ function TaskDetails({ taskData }) {
           <form>
             <div className="bg-[FFFFFF]-100-100 rounded-lg shadow-lg w-12/12 px-10 py-5 my-5 mx-2">
               <div className="flex w-full justify-between">
-                <h1 className="mb-2 font-normal">Week {taskObj.week}</h1>
+                <h1 className="mb-2 font-normal">Week {taskObj?.week}</h1>
                 <div className="flex items-end ">
                   <button
                     type="button"

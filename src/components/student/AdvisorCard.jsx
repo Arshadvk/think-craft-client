@@ -26,23 +26,20 @@ function AdvisorCard({ reviewData, student }) {
     };
   }, [socket]);
   return (
-    <div className="flex items-center justify-center mt-5">
-      <div className="bg-[FFFFFF]-100-100  flex rounded-lg shadow-lg w-9/12 p-2 ">
-        <div className=" w-2/2 lg:w-2/12  rounded-2xl overflow-hidden shadow-2xl ">
-          <img className="rounded-2xl  mb-1" src={advisorImage} alt="" />
-          <div className="items-end  relative"></div>
-        </div>
-        <div className="sm:w-3/4 px-3 flex items-center ">
-          <h1 className="w-full font-semibold ">{reviewData?.advisor?.name}</h1>
-          <div className="justify-end  mr-16 mt-2 w-full">
-            <button
-              onClick={() => handleJoinReview(student?.email, reviewData?._id)}
-              className="bg-black text-white rounded-xl px-5 py-2"
-            >
-              Join into review
-            </button>
-          </div>
-        </div>
+    <div className=" col-span-1 p-6  items-center  rounded-3xl mb-1">
+      <div className="flex flex-col items-center ">
+        <img
+          className="w-24 h-24 mb-3 rounded-3xl shadow-lg"
+          src={advisorImage}
+          alt=""
+        />
+        <button
+          
+          onClick={() => handleJoinReview(student?.email, reviewData?._id)}
+          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-950 rounded-lg hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-900 "
+          >
+           Join into review
+        </button>
       </div>
     </div>
   );
