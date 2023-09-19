@@ -1,29 +1,29 @@
-import React, { createContext, useMemo, useContext } from "react";
-import { io } from "socket.io-client";
+// import React, { createContext, useMemo, useContext } from "react";
+// import { io } from "socket.io-client";
 
-const ENDPOINT = "https://egoft.shop";
-// const ENDPOINT = 'http://localhost:5000'
+// const ENDPOINT = "https://egoft.shop";
+// // const ENDPOINT = 'http://localhost:5000'
 
-const SocketContext = createContext(null);
-
-export const useSocket = () => {
-  const socket = io(ENDPOINT);
-  return socket;
-};
+// const SocketContext = createContext(null);
 
 // export const useSocket = () => {
-//   const socket = useContext(SocketContext);
+//   const socket = io(ENDPOINT);
 //   return socket;
 // };
 
-// const socket = io('http://localhost:4000');
+// // export const useSocket = () => {
+// //   const socket = useContext(SocketContext);
+// //   return socket;
+// // };
 
-const ContextProvider = ({ children }) => {
-  const socket = useMemo(() => io(ENDPOINT), []);
+// // const socket = io('http://localhost:4000');
 
-  return (
-    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
-  );
-};
+// const ContextProvider = ({ children }) => {
+//   const socket = useMemo(() => io(ENDPOINT), []);
 
-export { ContextProvider, SocketContext };
+//   return (
+//     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
+//   );
+// };
+
+// export { ContextProvider, SocketContext };
