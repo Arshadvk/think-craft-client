@@ -9,17 +9,17 @@ const ENDPOINT = 'https://ego-ft.onrender.com'
 // const ENDPOINT = 'http://localhost:5000'
 
 
-const SocketContext = createContext<any>(null);
-
-// export const useSocket = () => {
-//   const socket = io(ENDPOINT)
-//   return socket;
-// };
+const SocketContext = createContext(null);
 
 export const useSocket = () => {
-  const socket = useContext(SocketContext);
+  const socket = io(ENDPOINT)
   return socket;
 };
+
+// export const useSocket = () => {
+//   const socket = useContext(SocketContext);
+//   return socket;
+// };
 
 // const socket = io('http://localhost:4000');
 
