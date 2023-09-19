@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from "react";
 import advisorImage from "../../assets/image/advisorProfile.jpg";
-import { useSocket } from "../../context/SocketProvider";
+// import { useSocket } from "../../context/SocketProvider";
 import { useNavigate } from "react-router-dom";
 
 function AdvisorCard({ reviewData, student }) {
-  const socket = useSocket();
+  // const socket = useSocket();
   const navigate = useNavigate();
   const handleJoinReview = useCallback(
     (email, room) => {
