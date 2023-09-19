@@ -6,15 +6,15 @@ const ENDPOINT = "https://egoft.shop";
 
 const SocketContext = createContext(null);
 
-export const useSocket = () => {
-  const socket = io(ENDPOINT);
-  return socket;
-};
-
 // export const useSocket = () => {
-//   const socket = useContext(SocketContext);
+//   const socket = io(ENDPOINT);
 //   return socket;
 // };
+
+export const useSocket = () => {
+  const socket = useContext(SocketContext);
+  return socket;
+};
 
 // const socket = io('http://localhost:4000');
 
