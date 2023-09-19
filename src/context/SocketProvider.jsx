@@ -1,7 +1,7 @@
 import React, { createContext, useMemo, useContext } from "react";
 import { io } from "socket.io-client";
 
-const ENDPOINT = "https://ego-ft.onrender.com";
+const ENDPOINT = "https://egoft.shop";
 // const ENDPOINT = 'http://localhost:5000'
 
 const SocketContext = createContext(null);
