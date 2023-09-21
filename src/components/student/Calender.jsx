@@ -35,7 +35,7 @@ function Calendar() {
 </svg>
           </button>
           <h2 className="text-xl">
-            {date.getMonth()}
+        
           </h2>
           <button
             onClick={() =>
