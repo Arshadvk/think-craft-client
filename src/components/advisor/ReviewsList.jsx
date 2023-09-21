@@ -40,7 +40,7 @@ function ReviewsList() {
                 {obj?.student?.name}
               </h5>
               <h5 className="mb-1 text-base font-normal text-gray-900 dark:text-white">
-                {obj?.student?.week < 10 ? `week : 0${obj?.student?.week}` : ""}
+                {obj?.week < 10 ? `week : 0${obj?.week}` : ""}
               </h5>
               <div className="flex mt-4 space-x-1 md:mt-6">
                 <button

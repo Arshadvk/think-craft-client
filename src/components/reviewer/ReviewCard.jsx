@@ -1,10 +1,9 @@
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
-import UserCard from "../common/card/UserCard";
 import reviewerImage from "../../assets/image/reviewerProfile.jpg";
-import { reviewslist } from "../../services/advisor/reviews";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../../context/SocketProvider";
+import noReview from '../../assets/image/noReview.jpg'
 
 function ReviewCard({ reviewData }) {
   const navigate = useNavigate();
@@ -35,7 +34,8 @@ function ReviewCard({ reviewData }) {
     };
   }, [socket]);
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <>
+    { reviewData.length !==0 ? <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {reviewData.length !==0 && reviewData?.map((obj) => {
         return (
           <div className="col-span-1 pt-4 m-3 bg-white border mx-2 border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700 shadow-2xl">
@@ -75,7 +75,15 @@ function ReviewCard({ reviewData }) {
           </div>
         );
       })}
-    </div>
+    </div> : <div className="justify-center min-h-screen flex text-center" 
+    style={{
+      backgroundImage: `url(${noReview})`,
+      backgroundSize: "cover", // This will make the background image cover the entire div
+      backgroundRepeat: "no-repeat", // This will prevent the background image from repeating
+    }}>
+      <h1 className="text-center font-semibold text-base"> you have no reviews pending</h1>
+    </div>}
+    </>
   );
 }
 

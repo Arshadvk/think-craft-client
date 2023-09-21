@@ -24,7 +24,7 @@ function ReviewerHomePage() {
     <div>
       <Navbar type={"reviewer"} />
       <div className="lg:ml-64">
-        <section className="bg-gray-50 min-h-screen items-center justify-center pt-20">
+        <section className="min-h-screen items-center justify-center pt-20">
           <ReviewCard reviewData={reviewData ? reviewData : []} />
         </section>
       </div>
