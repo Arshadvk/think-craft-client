@@ -117,7 +117,7 @@ function Login({type}) {
               {errorMessage2 && (
                 <span className="text-red-500 text-xs">{errorMessage2}</span>
               )}
-              <h3 className="text-end text-xs hover:drop-shadow-xl hover:cursor-pointer"> Forgot password ?</h3>
+              {/* <h3 className="text-end text-xs hover:drop-shadow-xl hover:cursor-pointer"> Forgot password ?</h3> */}
               
               <button
                 type="submit"
