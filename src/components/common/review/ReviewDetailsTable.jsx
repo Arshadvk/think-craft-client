@@ -14,7 +14,7 @@ function ReviewDetailsTable({student , user , id  , review }) {
       <PendingTaskBox user={user}  id={id} pndTask={review?.pendingTask}/>
       <TaskDetails user={user} review={review} id={id} student={student?._id} week={student?.week} taskStatus={review?.taskStatus} status={review?.status}/>
     </div>
-    <TaskUploadedDetail/>
+    {/* <TaskUploadedDetail/> */}
     </>
   )
 }
