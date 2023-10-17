@@ -13,8 +13,8 @@ import { useLoginHandle } from "../../../hooks/LoginHandle";
 function Login({type}) {
   const user = type 
   console.log(user);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(user=== 'advisor' ? 'advisor@gmail.com' : user=== "reviewer" ? "reviewer@gmail.com" : user === "admin" ? "admin@gmail.com" : "student@gmail.com" );
+  const [password, setPassword] = useState(12345678);
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
