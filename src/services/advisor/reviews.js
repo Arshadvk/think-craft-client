@@ -6,6 +6,13 @@ export const reviewslist = async (type) => {
     console.log(response.data);
     return response.data
 }
+export const reviewslistBySearch = async (value) => {
+
+    const response = await advisorAxios.get(`/review-list?${value}`)
+    console.log(response.data);
+    return response.data
+}
+
 export const reviewslistForbooking = async (type,) => {
     try {
         const response = await advisorAxios.get(`/review-list?type=${type}`)

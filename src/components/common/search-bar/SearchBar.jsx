@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { fetchDomains, searchUserDetails } from "../../services/admin/user";
+import { fetchDomains, searchUserDetails } from "../../../services/admin/user";
+import { reviewslist } from "../../../services/advisor/reviews";
 
-function SearchBar({ user, setUserDate }) {
+function SearchBar({ user, setData, type }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [category, setCategory] = useState([]);
   useEffect(() => {
@@ -18,12 +19,19 @@ function SearchBar({ user, setUserDate }) {
   };
   const handleSearchOnChange = (event) => {
     console.log(event);
+    
     const query = `?search=${event}`;
     fetchUserDataHelper(query);
   };
   const fetchUserDataHelper = async (value) => {
-    const data = await searchUserDetails(user, value);
-    setUserDate(data);
+    if (type !== "review") {
+      const data = await searchUserDetails(user, value);
+      setData(data);
+    }
+    if (type === "review") {
+      const data = await reviewslist(value)
+      setData(data);
+    }
   };
   return (
     <form>

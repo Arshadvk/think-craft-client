@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/common/nav/Navbar'
 import ReviewListingTable from '../../components/reviewer/ReviewListingTable'
 import { reviewslist } from '../../services/advisor/reviews'
+import SearchBar from '../../components/common/search-bar/SearchBar'
 
 function AdvisorReviewsListingPage() {
     const [reviews, setReviews] = useState([])
@@ -20,6 +21,7 @@ function AdvisorReviewsListingPage() {
       <Navbar type={'advisor'} />
       <div className="lg:ml-64">
       <section className="bg-gray-50 min-h-screen  items-center justify-center p-4 pt-20">
+      <SearchBar  user={""} setData={setReviews} type={"review"}/>
           <ReviewListingTable reviews={reviews ? reviews : []} user={'advisor'}/>
         </section>
       </div>
