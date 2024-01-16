@@ -3,7 +3,7 @@ import { advisorAPI } from "../constants/api";
 
 const advisorInstance = axios.create({
     baseURL: advisorAPI,
-    timeout: 3000,
+    timeout: 6000,
 });
 
 advisorInstance.interceptors.request.use((req) => {

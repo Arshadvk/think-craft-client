@@ -3,7 +3,7 @@ import { adminAPI } from "../constants/api";
 
 const adminInstance = axios.create({
     baseURL: adminAPI,
-    timeout: 3000, 
+    timeout: 6000, 
 });
 
 adminInstance.interceptors.request.use((req) => {

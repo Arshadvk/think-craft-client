@@ -3,7 +3,7 @@ import { studentAPI } from "../constants/api";
 
 const studentInstance = axios.create({
     baseURL:studentAPI,
-    timeout : 3000
+    timeout : 6000
 })
 studentInstance.interceptors.request.use((req) => {
     if (localStorage.getItem('student')){

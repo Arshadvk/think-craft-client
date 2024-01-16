@@ -3,7 +3,7 @@ import { reviewerAPI } from "../constants/api";
 
 const reviewerInstance = axios.create({
     baseURL: reviewerAPI,
-    timeout : 3000
+    timeout : 6000
 });
 
 reviewerInstance.interceptors.request.use((req) => {
